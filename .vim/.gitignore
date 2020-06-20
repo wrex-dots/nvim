@@ -1,0 +1,10 @@
+UltiSnips/
+autoload/
+bin/
+compiler/
+ftdetect/
+ftplugin/
+indent/
+plugged/
+syntax/
+syntax_checkers/
