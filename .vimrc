@@ -1,14 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer:
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
 " Sections:
 "    -> General
 "    -> VIM user interface
@@ -35,7 +24,9 @@ source ~/.vim/plugsettings.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enhance compatibility (for Fish users)
+"{{{
+
+" Enhance compatibility for Fish users
 if &shell =~# 'fish$'
     set shell=sh
 endif
@@ -46,6 +37,10 @@ set history=500
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
+
+""" Custom Filtypes:
+au BufNewFile,BufEnter,BufRead,BufWritePost *.dotinfo    setf json
+au BufNewFile,BufEnter,BufRead,BufWritePost *.rasi       setf css
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -60,17 +55,23 @@ nmap <leader>W :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+if has('nvim')
+    command W exe 'w !sudo tee > /dev/null %:p:S' | setl nomod
+else
+    command W w !sudo tee > /dev/null %
+endif
 
 " Enable mouse support in all modes
 if has('nvim')
     set mouse=a
 endif
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Show relative line count
 " Switch back to absolute when loosing focus
 set number
@@ -144,12 +145,17 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-" Add a bit extra margin to the left
-" set foldcolumn=1
+" Display what you can fold if folding is enabled
+if &fdm != "manual"
+    set foldcolumn=1
+endif
 
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Enable syntax highlighting
 syntax enable
 
@@ -184,7 +190,7 @@ if &term == "linux"
     let g:jellybeans_use_lowcolor_black = 1
 else
     source ~/.vim/plugged/Gummybears/colors/gummybears.vim
-    " Disable text having a different BG than empty lines
+    " Disable text having a different BG from empty lines
     hi Normal ctermbg=0
     hi LineNr ctermfg=DarkGrey
     hi! link SignColumn Normal
@@ -197,21 +203,23 @@ autocmd BufEnter,FileType *.c,*.cpp,*.h,*.hpp match OverLength /\%>79v.\+/
 " Makefiles
 autocmd BufEnter,FileType Makefile,makefile,*.mk,*.mak match OverLength /\%>124v.\+/
 
-" Enable .rasi syntax hylighting
-au BufNewFile,BufRead /*.rasi setf css
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Use spaces instead of tabs
 set expandtab
 
@@ -230,19 +238,23 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-
-""""""""""""""""""""""""""""""
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Visual mode related
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
@@ -298,20 +310,24 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-""""""""""""""""""""""""""""""
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Never show the status line (plugins do better)
 set laststatus=0
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
@@ -328,7 +344,7 @@ if has("mac") || has("macunix")
   vmap <D-k> <M-k>
 endif
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" Delete trailing whitespaces on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
@@ -337,16 +353,28 @@ fun! CleanExtraSpaces()
     call setreg('/', old_query)
 endfun
 
-if has("autocmd")
-    autocmd BufWritePre * :call CleanExtraSpaces()
-endif
+    " Some filetypes NEED trailing whitespaces, like in Markdown to
+    " explicitly tell the parser to add a linebreak with two trailing spaces.
+    let g:CleanExtraSpaces_exclude = ['markdown', 'md']
+
+    " The condition needs to be IN the autocmd.
+    " If the autocmd is defined from inside and if block with this condition,
+    " it won't work as apparently the filetype is set AFTER sourcing the
+    " configuration file.
+    autocmd BufWritePre *
+        \ if index(CleanExtraSpaces_exclude, &filetype) == -1
+        \ |  :call CleanExtraSpaces()
+        \ | endif
 
 " Sort selection
 vmap <M-s> :sort<cr>
 
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -356,10 +384,12 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -387,10 +417,12 @@ if has('nvim')
     let g:python3_host_prog = system('which python3 | tr -d "\n"')
 endif
 
-
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -441,9 +473,12 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"{{{
+
 " Airline: automatically display all buffers when only one tab is open
 let g:airline#extensions#tabline#enabled = 1
 
@@ -464,15 +499,27 @@ let g:clang_format#detect_style_file=1
 autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
 
+" CoC Formatter: Press F10 to use CoC's :Format command in NeoVim
+if has('nvim')
+    noremap <F10> :Format<CR>
+endif
+
 " NERDTree: shortcut
 map <C-n> :NERDTreeToggle<cr>
 
 " NERDTree: Close vim when the only window left open is NerdTree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" NERDTree: Open NerdTree when opening a directory
+" NERDTree: Open NerdTree when opening a directory or without arguments
+" Make sure to no open NERDTree when you're sending something on (N)Vim"s standard input
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h | exe 'cd '.argv()[0] | endif
+if (argc() == 0)
+    " No argumet                    Comment to deactivate
+    autocmd VimEnter * exe 'NERDTree' getcwd() | wincmd p | exe 'cd '.getcwd()
+elseif (argc() == 1 && isdirectory(argv(0)) && !exists("s:std_in"))
+    " Single argument (directory)   Comment to deactivate
+    autocmd VimEnter * exe 'NERDTree' argv(0) | wincmd p | ene | exe 'cd '.argv(0)
+endif
 
 " NERDTree: File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
@@ -518,3 +565,11 @@ if ! has('nvim')
     nnoremap <F12> :GotoHeader <CR>
     imap <F12> <Esc>:GotoHeader <CR>
 endif
+
+" Script Runner: Set custom hotkey
+let g:script_runner_key = '<F12>'
+
+"}}}
+
+" This line ensures folding occurs where markers {{{ ... }}} are set.
+" vim: fdm=marker
