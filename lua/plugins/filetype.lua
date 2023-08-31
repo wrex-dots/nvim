@@ -4,7 +4,7 @@ return {
   {
     "nathom/filetype.nvim",
 
-    enanble = false,
+		-- enanble = false,
 
     event = "VimEnter",
 
