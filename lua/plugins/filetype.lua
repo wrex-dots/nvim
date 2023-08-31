@@ -1,19 +1,20 @@
 vim.g.did_load_filetypes = 1
 
 return {
-  {
-    "nathom/filetype.nvim",
+	{
+		"nathom/filetype.nvim",
 
 		-- enanble = false,
 
-    event = "VimEnter",
+		event = "VimEnter",
 
-    opts = {
-      overrides = {
-        extensions = {
-          json = "jsonc",
-        },
-      },
-    },
-  },
+		opts = {
+			overrides = {
+				extensions = {
+					map = "json",
+					json = "jsonc",
+				},
+			},
+		},
+	},
 }
