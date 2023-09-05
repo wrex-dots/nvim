@@ -20,7 +20,7 @@
 " quick succession, while most other do not care about how
 " fast or slow you perform them.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
+" let mapleader = ","
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
