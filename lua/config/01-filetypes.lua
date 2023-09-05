@@ -20,7 +20,7 @@ local overrides = {
 	},
 	{
 		"\\cdockerfile",
-		"docker",
+		"dockerfile",
 	},
 }
 
