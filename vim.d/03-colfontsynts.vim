@@ -80,16 +80,6 @@ autocmd BufEnter,FileType Makefile,makefile,*.mk,*.mak match OverLength /\%>124v
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Allow comments in JSON files by default
-"
-" Make sure apps that use your commented files support JSONC !
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup JsonToJsonc
-    autocmd! FileType json set filetype=jsonc
-augroup END
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Enable syntax highlighting for standard formats that use
 "    a different extension
 "
