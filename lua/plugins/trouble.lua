@@ -37,11 +37,6 @@ return {
         Trouble("loclist"),
         desc = "Location list",
       },
-      {
-        "gr",
-        Trouble("lsp_references"),
-        desc = "LSP References",
-      },
     }, {
       mode = "n",
       prefix = "Trouble: ",
