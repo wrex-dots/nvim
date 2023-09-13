@@ -69,21 +69,35 @@ return {
 						lspconfig[name].setup({ capabilities = capabilities })
 					end,
 					["tsserver"] = function()
-						local inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = false,
-							includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayEnumMemberValueHints = true,
+						local language_settings = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = false,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
 						}
+
 						lspconfig.tsserver.setup({
-							javascript = { inlayHints = inlayHints },
-							typescript = { inlayHints = inlayHints },
-							javascriptreeact = { inlayHints = inlayHints },
-							typescriptreact = { inlayHints = inlayHints },
+							capabilities = capabilities,
+							init_options = {
+								-- This is the default which would be overwritten otherwise
+								hostInfo = "neovim",
+								-- 16 gb
+								maxTsServerMemory = 16384,
+								-- Never use LSP for syntax anyway
+								tsserver = { useSyntaxServer = "never" },
+							},
+							settings = {
+								["javascript"] = language_settings,
+								["typescript"] = language_settings,
+								["javascriptreeact"] = language_settings,
+								["typescriptreact"] = language_settings,
+							},
 						})
 					end,
 				},
