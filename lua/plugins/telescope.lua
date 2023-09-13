@@ -127,15 +127,23 @@ return {
 
 		config = function()
 			local tele = require("telescope")
-
 			tele.setup({})
+			tele.load_extension("fzf")
+
+			local load_extension_if_requireable = function(module, nameIfDifferentFromModule)
+				local ok, _ = pcall(require(module))
+				if not ok then
+					return
+				end
+				tele.load_extension(nameIfDifferentFromModule or module)
+			end
 
 			local extensions = {
-				"fzf",
+				{ "scope" },
 			}
 
 			for _, ext in ipairs(extensions) do
-				tele.load_extension(ext)
+				load_extension_if_requireable(ext[1], ext[2])
 			end
 		end,
 	},
