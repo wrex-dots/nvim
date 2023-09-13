@@ -97,6 +97,7 @@ return {
 
 		dependencies = {
 			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
 		},
 
 		config = function()
@@ -107,7 +108,8 @@ return {
 					"stylua", -- Lua
 
 					-- Linters
-					-- "eslint_d", -- TS, JS
+					-- "eslint_d", -- TS, JS (breaks)
+					"eslint", -- TS, JS
 					"selene", -- Lua
 					"actionlint", -- Github actions
 					"vint", -- VimScript
