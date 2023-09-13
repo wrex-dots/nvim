@@ -7,6 +7,19 @@ return {
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
 			"nvim-tree/nvim-web-devicons",
+			{
+				"tiagovla/scope.nvim",
+
+				init = function()
+					vim.opt.sessionoptions = { -- required
+						"buffers",
+						"tabpages",
+						"globals",
+					}
+				end,
+
+				config = true,
+			},
 		},
 
 		lazy = false,
