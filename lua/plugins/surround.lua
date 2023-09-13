@@ -1,13 +1,14 @@
 return {
-  {
-    'kylechui/nvim-surround',
+	{
+		"kylechui/nvim-surround",
 
-    keys = {
-      'ys',
-      'ds',
-      'cs',
-    },
+		keys = {
+			"ys",
+			"ds",
+			"cs",
+			"<S-s>",
+		},
 
-    config = true,
-  }
+		config = true,
+	},
 }
