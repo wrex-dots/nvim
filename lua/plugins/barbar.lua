@@ -1,8 +1,4 @@
-local mapopt = {
-	mode = { "i", "n", "x" },
-	noremap = true,
-	silent = true,
-}
+local fox = require("foxutils")
 
 return {
 	{
@@ -25,9 +21,7 @@ return {
 			end, { bang = true, complete = "file", desc = "Save barbar with :mksession", nargs = "?" })
 		end,
 
-		keys = vim.tbl_map(function(mapping)
-			return vim.tbl_extend("keep", mapping, mapopt)
-		end, {
+		keys = fox.keys.lazy({
 			{
 				"<S-PageUp>",
 				vim.cmd.BufferPrevious,
@@ -147,6 +141,10 @@ return {
 				desc = "Trigger buffer picker",
 			},
 			{
+				"<C-b>m",
+				desc = "Move buffer to tab",
+			},
+			{
 				"<C-b>on",
 				vim.cmd.BufferOrderByBufferNumber,
 				desc = "Order buffers by number",
@@ -166,6 +164,11 @@ return {
 				vim.cmd.BufferOrderByWindowNumber,
 				desc = "Order buffers by language",
 			},
+		}, {
+			mode = { "i", "n", "x" },
+			noremap = true,
+			silent = true,
+			prefix = "Barbar: ",
 		}),
 
 		opts = {
