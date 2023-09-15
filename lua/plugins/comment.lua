@@ -16,7 +16,7 @@ return {
 				function()
 					require("Comment.api").toggle.linewise.current()
 				end,
-				mode = { "i" },
+				mode = { "i", 'n' },
 				desc = "Current line",
 			},
 			{
@@ -24,7 +24,7 @@ return {
 				function()
 					require("Comment.api").toggle.blockwise.current()
 				end,
-				mode = { "i" },
+				mode = { "i", 'n' },
 				desc = "Current line (as block)",
 			},
 			{
