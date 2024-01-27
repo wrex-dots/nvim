@@ -1,82 +1,85 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
+  {
+    "nvim-treesitter/nvim-treesitter",
 
-		dependencies = {
-			{ -- 🌈 Rainbow parenthesis
-				"HiPhish/nvim-ts-rainbow2",
-				enabled = false,
-			},
+    dependencies = {
+      { -- Keep track of the current context as a sticky topline
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = {
+          enable = true,
+          max_lines = 0,
+        },
+      },
 
-			-- Automatic setting of the commentstring value based on cursor position
-			"JoosepAlviste/nvim-ts-context-commentstring",
+      { -- Automatic bracket pairing
+        "windwp/nvim-autopairs",
 
-			{ -- Keep track of the current context as a sticky topline
-				"nvim-treesitter/nvim-treesitter-context",
-				opts = {
-					enable = true,
-					separator = "~",
-				},
-			},
+        event = "Syntax *",
 
-			{ -- Automatic bracket pairing
-				"windwp/nvim-autopairs",
+        opts = {
+          check_ts = true,
+        },
+      },
 
-				event = "Syntax *",
+      { -- More context-aware refactoring
+        "nvim-treesitter/nvim-treesitter-refactor",
+      },
 
-				opts = {
-					check_ts = true,
-				},
-			},
+      { -- Manipulate and move around text objects
+        "nvim-treesitter/nvim-treesitter-textobjects",
+      },
 
-			"nvim-treesitter/nvim-treesitter-refactor",
+      { -- Get syntax hilighting etc for Hyprland config files
+        "luckasRanarison/tree-sitter-hypr",
+      },
+    },
 
-			{ -- Manipulate and move around text objects
-				"nvim-treesitter/nvim-treesitter-textobjects",
-			},
-		},
+    event = "VeryLazy",
 
-		event = "VeryLazy",
+    build = ":TSUpdate",
 
-		build = ":TSUpdate",
+    init = function()
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+      vim.o.foldminlines = 3
+      vim.o.foldlevelstart = 20
+      vim.o.foldcolumn = "auto"
+    end,
 
-		init = function()
-			vim.o.foldmethod = "expr"
-			vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.o.foldminlines = 3
-			vim.o.foldlevelstart = 20
-			vim.o.foldcolumn = "auto"
-		end,
+    config = function()
+      require("nvim-treesitter.parsers").get_parser_configs().hypr = {
+        install_info = {
+          url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+          files = { "src/parser.c" },
+          branch = "master",
+        },
+        filetype = "hypr",
+      }
 
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				auto_install = true,
+      require("nvim-treesitter.configs").setup {
+        auto_install = true,
 
-				ensure_installed = {
-					"lua",
-					"javascript",
-					"typescript",
-					"tsx",
-					"vim",
-					"vimdoc",
-				},
+        ensure_installed = {
+          "hypr",
+          "javascript",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "tsx",
+          "typescript",
+          "vim",
+          "vimdoc",
+        },
 
-				indent = { enable = true },
-				highlight = { enable = true },
-				context_commentstring = { enable = true },
-				incremental_selection = { enable = true },
-
-				-- rainbow = {
-				--   enable = true,
-				--   strategy = require("ts-rainbow").strategy["local"],
-				-- },
-
-				textobjects = {
-					select = { enable = true },
-					swap = { enable = true },
-					lsp_interop = { enable = true },
-				},
-			})
-		end,
-	},
+        indent = { enable = true },
+        highlight = { enable = true },
+        incremental_selection = { enable = true },
+        textobjects = {
+          select = { enable = true },
+          swap = { enable = true },
+          lsp_interop = { enable = true },
+        },
+      }
+    end,
+  },
 }

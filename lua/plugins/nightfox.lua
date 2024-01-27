@@ -1,23 +1,33 @@
 return {
-  'EdenEast/nightfox.nvim',
+  {
+    "anuvyklack/windows.nvim",
 
-  lazy = false,
-  priority = 100,
+    dependencies = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim",
+    },
 
-  config = function()
-    vim.o.termguicolors = true
-    require('nightfox').setup {
-      options = {
-        transparent = true,
-        dim_inactive = false,
-        styles = {
-          keywords = 'bold',
-          functions = 'bold',
+    config = true,
+  },
+  {
+    "EdenEast/nightfox.nvim",
 
+    lazy = false,
+    priority = 100,
+
+    config = function()
+      vim.o.termguicolors = true
+      require("nightfox").setup {
+        options = {
+          transparent = true,
+          dim_inactive = false,
+          styles = {
+            keywords = "bold",
+            functions = "bold",
+          },
         },
       }
-    }
-    vim.cmd.colorscheme('duskfox')
-  end
+      vim.cmd.colorscheme("duskfox")
+    end,
+  },
 }
-

@@ -8,6 +8,7 @@ return {
 		{
 			"antosha417/nvim-lsp-file-operations",
 			dependencies = { "nvim-lua/plenary.nvim" },
+      config = true,
 		},
 	},
 
@@ -37,18 +38,6 @@ return {
 		-- Set termguicolors to enable highlight groups.
 		-- This might be enabled elsewhere, but you're never too sure.
 		vim.opt.termguicolors = true
-
-		-- When starting NeoVim with a directory as argument, open the tree
-		vim.api.nvim_create_autocmd({ "VimEnter" }, {
-			pattern = "*",
-			callback = function(data)
-				if vim.fn.isdirectory(data.file) == 1 then
-					require("nvim-tree.api").tree.open({
-						path = data.file,
-					})
-				end
-			end,
-		})
 	end,
 
 	opts = {
@@ -57,6 +46,7 @@ return {
 		},
 
 		sync_root_with_cwd = true,
+    respect_buf_cwd = true,
 
 		view = {
 			width = 50,
@@ -159,12 +149,13 @@ return {
 	},
 
 	config = function(_, opts)
-		require("nvim-tree").setup(opts)
-
 		local evt = require("nvim-tree.api").events
 
+		-- Doesn't work ?
 		evt.subscribe(evt.Event.FileCreated, function(file)
 			vim.cmd.edit(file.name)
 		end)
+
+		require("nvim-tree").setup(opts)
 	end,
 }

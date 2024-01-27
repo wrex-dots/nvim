@@ -4,3 +4,5 @@
 Run `nvim`, wait for it to install everything and close it.
 Now run `nvim +checkhealth` and make sure you've got no errors.
 That's it, you're done. Enjoy!
+
+![sauce](~/Pictures/Memes/Pocky/Hot.png)

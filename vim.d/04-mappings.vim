@@ -30,9 +30,9 @@
 " <Ctrl+W><X>       => Save all changes and exit
 " <Ctrl+W><Shift+Q> => Exits no matter what (risky)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-W>q :qa<cr>
-map <C-W>x :xa<cr>
-map <C-W>Q :qa!<cr>
+map <C-W>q  :qa<cr>
+map <C-W>x  :xa<cr>
+map <C-W>qq :qa!<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

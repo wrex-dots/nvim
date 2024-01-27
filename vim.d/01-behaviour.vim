@@ -44,7 +44,7 @@ set autoread
 " Turn backup off, since most stuff is in SVN, git etc anyway.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 
@@ -70,7 +70,7 @@ inoremap <silent> <PageDown> <C-\><C-O><C-D>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
   set switchbuf=useopen,usetab,split
-  set stal=2
+  set showtabline=2
 catch
 endtry
 
