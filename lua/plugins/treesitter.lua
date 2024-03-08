@@ -38,42 +38,35 @@ return {
 
     build = ":TSUpdate",
 
-    config = function()
-      require("nvim-treesitter.parsers").get_parser_configs().hypr = {
-        install_info = {
-          url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-          files = { "src/parser.c" },
-          branch = "master",
-        },
-        filetype = "hypr",
-      }
+    -- stylua: ignore
+    ---@type TSConfig
+    ---@diagnostic disable-next-line: missing-fields
+    opts = {
+      auto_install = true,
 
-      require("nvim-treesitter.configs").setup {
-        auto_install = true,
+      ensure_installed = {
+        "c",
+        "cpp",
+        "hypr",
+        "javascript",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+      },
 
-        ensure_installed = {
-          "c",
-          "cpp",
-          "hypr",
-          "javascript",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "tsx",
-          "typescript",
-          "vim",
-          "vimdoc",
-        },
+      indent                = { enable = true },
+      highlight             = { enable = true },
+      incremental_selection = { enable = true },
 
-        indent = { enable = true },
-        highlight = { enable = true },
-        incremental_selection = { enable = true },
-        textobjects = {
-          select = { enable = true },
-          swap = { enable = true },
-          lsp_interop = { enable = true },
-        },
-      }
-    end,
+      textobjects = {
+        select      = { enable = true },
+        swap        = { enable = true },
+        lsp_interop = { enable = true },
+      },
+    },
   },
 }
