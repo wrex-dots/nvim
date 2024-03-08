@@ -1,4 +1,7 @@
-local fox = require("foxutils")
+---@diagnostic disable: redundant-parameter
+-- `mason-null-ls.setup`'s `handlers` typings differs from what's on the docs
+
+local fox = require "foxutils"
 local FormatOnSave = vim.api.nvim_create_augroup("FormatOnSave", {})
 local FixOnSave = vim.api.nvim_create_augroup("FixOnSave", {})
 ---@type LazySpec[]
