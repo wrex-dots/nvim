@@ -34,7 +34,7 @@ return {
       },
     },
 
-    event = "VeryLazy",
+    event = "Syntax *",
 
     build = ":TSUpdate",
 
