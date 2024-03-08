@@ -75,4 +75,10 @@ table.insert(M, { -- Fancy scroll bars
   },
 })
 
+table.insert(M, { -- Pretty notification popups
+  "rcarriga/nvim-notify",
+
+  lazy = false,
+})
+
 return M
