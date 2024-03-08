@@ -3,7 +3,7 @@
 
 local fox = require "foxutils"
 local FormatOnSave = vim.api.nvim_create_augroup("FormatOnSave", {})
-local FixOnSave = vim.api.nvim_create_augroup("FixOnSave", {})
+
 ---@type LazySpec[]
 local extra_deps = {}
 
@@ -136,6 +136,13 @@ return {
         end
       end
 
+      local handlers = require "lsphandlers"
+      local lsptools = {
+        lspconfig = lspconfig,
+        capabilities = capabilities,
+        hook_fmt = attach_formatter_on_save,
+      }
+
       masonlsp.setup {
         -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
         -- This setting has no relation with the `ensure_installed` setting.
@@ -163,119 +170,7 @@ return {
         },
 
         -- See `:h mason-lspconfig.setup_handlers()`
-        ---@type table<string, fun(server_name: string)>?
-        handlers = {
-          function(name)
-            lspconfig[name].setup {
-              on_attach = attach_formatter_on_save,
-              capabilities = capabilities,
-            }
-          end,
-
-          ["jsonls"] = function()
-            lspconfig.jsonls.setup {
-              capabilities = capabilities,
-              settings = {
-                validate = { enable = true },
-                schemas = require("schemastore").json.schemas {
-                  extra = {
-                    {
-                      description = "Nodemon",
-                      fileMatch = "nodemon.json",
-                      name = "nodemon.json",
-                      url = "https://json.schemastore.org/nodemon.json",
-                    },
-                  },
-                },
-              },
-            }
-          end,
-
-          ["lua_ls"] = function()
-            lspconfig.lua_ls.setup {
-              capabilities = capabilities,
-              on_attach = attach_formatter_on_save,
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { "vim" },
-                  },
-                },
-              },
-            }
-          end,
-
-          ["tsserver"] = function()
-            local language_settings = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            }
-
-            lspconfig.tsserver.setup {
-              capabilities = capabilities,
-              on_attach = function(client, buffer)
-                require("twoslash-queries").attach(client, buffer)
-                attach_formatter_on_save(client, buffer)
-              end,
-              init_options = {
-                -- This is the default which would be overwritten otherwise
-                hostInfo = "neovim",
-                -- 16 gb
-                maxTsServerMemory = 16384,
-                -- Never use LSP for syntax anyway
-                tsserver = { useSyntaxServer = "never" },
-              },
-              settings = {
-                ["javascript"] = language_settings,
-                ["typescript"] = language_settings,
-                ["javascriptreeact"] = language_settings,
-                ["typescriptreact"] = language_settings,
-                diagnostics = {
-                  ignoredCodes = {
-                    "80006", -- "This may be converted to an async function" SHUT THE FUCK UP
-                  },
-                },
-              },
-            }
-          end,
-
-          ["eslint"] = function()
-            lspconfig.eslint.setup {
-              capabilities = capabilities,
-              on_attach = function(_client, buffer)
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                  group = FixOnSave,
-                  buffer = buffer,
-                  command = "EslintFixAll",
-                })
-              end,
-            }
-          end,
-
-          ["yamlls"] = function()
-            lspconfig.yamlls.setup {
-              capabilities = capabilities,
-              on_attach = attach_formatter_on_save,
-              settings = {
-                yamml = {
-                  schemaStore = {
-                    enable = false,
-                    url = "",
-                  },
-                  schemas = require("schemastore").yaml.schemas(),
-                },
-              },
-            }
-          end,
-        },
+        handlers = handlers.get_handlers(lsptools),
       }
     end,
   },
