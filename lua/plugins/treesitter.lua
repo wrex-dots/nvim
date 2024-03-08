@@ -38,14 +38,6 @@ return {
 
     build = ":TSUpdate",
 
-    init = function()
-      vim.o.foldmethod = "expr"
-      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.o.foldminlines = 3
-      vim.o.foldlevelstart = 20
-      vim.o.foldcolumn = "auto"
-    end,
-
     config = function()
       require("nvim-treesitter.parsers").get_parser_configs().hypr = {
         install_info = {
