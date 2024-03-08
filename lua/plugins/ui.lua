@@ -81,4 +81,14 @@ table.insert(M, { -- Pretty notification popups
   lazy = false,
 })
 
+table.insert(M, { -- Indentation scope visualiser
+  "echasnovski/mini.indentscope",
+  version = "*",
+  opts = {
+    draw = {
+      priority = 50,
+    },
+  },
+})
+
 return M
