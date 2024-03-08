@@ -50,4 +50,14 @@ table.insert(M, { -- Smooth scrolling
   end,
 })
 
+table.insert(M, { -- More informative search UI
+  "kevinhwang91/nvim-hlslens",
+
+  dependencies = { "kevinhwang91/nvim-ufo" },
+
+  event = "VeryLazy",
+
+  keys = { "/", "?" },
+})
+
 return M
