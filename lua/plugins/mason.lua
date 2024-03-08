@@ -124,10 +124,12 @@ return {
             group = FormatOnSave,
             buffer = buffer,
             callback = function()
+              -- selene: allow(global_usage)
               _G["PLF_SHOULD_OPEN_PICKER"] = false
               require("plf").format {
                 async = false,
               }
+              -- selene: allow(global_usage)
               _G["PLF_SHOULD_OPEN_PICKER"] = true
             end,
           })
