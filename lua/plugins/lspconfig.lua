@@ -80,23 +80,19 @@ return {
 				end,
 			})
 
-			--[[
-      Enable this when v0.10.x gets released
+      if vim.fn.has "nvim-0.10" == 1 then
+        local InlayHintsToggle =
+          vim.api.nvim_create_augroup("InlayHintsToggle", {})
 
-        local InlayHintsToggle = vim.api.nvim_create_augroup("InlayHintsToggle", {})
         vim.api.nvim_create_autocmd({ "InsertEnter" }, {
           group = InlayHintsToggle,
-          callback = function()
-            vim.lsp.buf.inlay_hint(0, true)
-          end,
+          callback = function() vim.lsp.buf.inlay_hint(0, true) end,
         })
         vim.api.nvim_create_autocmd({ "InsertLeave" }, {
           group = InlayHintsToggle,
-          callback = function()
-            vim.lsp.buf.inlay_hint(0, false)
-          end,
+          callback = function() vim.lsp.buf.inlay_hint(0, false) end,
         })
-      ]]
-		end,
-	},
+      end
+    end,
+  },
 }
