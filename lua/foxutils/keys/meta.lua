@@ -1,44 +1,46 @@
 ---@meta
 
----@alias modestring
+---@alias MapModeStr
 ---| 'i' # Insert
 ---| 'n' # Normal
+---| 'o' # Operator pending
 ---| 'v' # Visual
 ---| 'x' # Select and Visual
 
----@alias modearray Array<modestring>
+---@alias MapModeTable Array<MapModeStr>
 
 ---@alias mode
----| modestring # Single mode
----| modearray  # Multiple modes
+---| MapModeStr   # Single mode
+---| MapModeTable # Multiple modes
 
----@alias rhs
+---@alias MapRHS
 ---| string   # Vim action
 ---| function # Lua action
 
----@alias vimbuffer
+---@alias VimBufferNum
 ---| number # The buffer number
 ---| true   # Current buffer
 
----@class optmap
----@field buffer           vimbuffer? The buffer this keymap will be attached to
----@field remap            boolean?   Allow remapping to something else
----@field noremap          boolean?   Prevent remapping to something else
----@field expr             boolean?   I still don't understand what this does exactly
----@field replace_keycodes boolean?   Replace keycodes in the resulting string (true if epr = true)
+---@class MapOptions
+---@field buffer           VimBufferNum? The buffer this keymap will be attached to
+---@field remap            boolean?      Allow remapping to something else
+---@field noremap          boolean?      Prevent remapping to something else
+---@field expr             boolean?      I still don't understand what this does exactly
+---@field replace_keycodes boolean?      Replace keycodes in the resulting string (true if epr = true)
 
----@class batchmapping
----@field [1] string Description of the mapping
----@field [2] string Keystroke
----@field [3] rhs    Action to trigger
----@field [4] optmap Options for the mapping
+---@class MapBatchItem
+---@field [1] string     Description of the mapping
+---@field [2] string     Keystroke
+---@field [3] MapRHS     Action to trigger
+---@field [4] MapOptions Options for the mapping
 
----@class batchmodes
----@field n Array<batchmapping>? Normal
----@field i Array<batchmapping>? Insert
----@field v Array<batchmapping>? Visual
----@field x Array<batchmapping>? Select
+---@class MapBatchModes
+---@field i Array<MapBatchItem>? Insert
+---@field n Array<MapBatchItem>? Normal
+---@field o Array<MapBatchItem>? Operator-pending
+---@field v Array<MapBatchItem>? Visual
+---@field x Array<MapBatchItem>? Select
 
----@class batchmap
----@field map batchmodes?     Remappable
----@field noremap batchmodes? Non-remappable
+---@class MapBatch
+---@field map     MapBatchModes? Remappable
+---@field noremap MapBatchModes? Non-remappable

@@ -1,10 +1,10 @@
 local mappers = {
-  map = require('foxutils.keys.map'),
-  noremap = require('foxutils.keys.noremap'),
+  map = require "foxutils.keys.map",
+  noremap = require "foxutils.keys.noremap",
 }
 
 local function is_batch_table(t)
-  assert(t.type ~= 'table', 'Must pass a table')
+  assert(t.type ~= "table", "Must pass a table")
   return t
 end
 
@@ -15,7 +15,7 @@ local function batchmap_mode(maplist, mapper, globalopts)
   for _, map in ipairs(maplist) do
     desc, lhs, rhs, mapopts = unpack(map)
     mapopts = mapopts or {}
-    opts = vim.tbl_extend('keep', mapopts or {}, globalopts)
+    opts = vim.tbl_extend("keep", mapopts or {}, globalopts)
     mapper(desc, lhs, rhs, opts)
   end
 end
@@ -54,8 +54,8 @@ end
 ---   },
 --- }
 --- ```
----@param maptable batchmap A whole bunch of mappings 😌
----@param opts?    optmap   Options to apply to ALL of the mappings (options set in mappings will have precedence)
+---@param maptable MapBatch A whole bunch of mappings 😌
+---@param opts?    MapOptions   Options to apply to ALL of the mappings (options set in mappings will have precedence)
 local function batchmap(maptable, opts)
   local t = is_batch_table(maptable)
 

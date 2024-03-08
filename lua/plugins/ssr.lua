@@ -1,3 +1,5 @@
+local fox = require "foxutils"
+
 ---@type LazySpec
 return {
   {
