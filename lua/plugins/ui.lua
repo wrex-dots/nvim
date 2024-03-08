@@ -34,4 +34,20 @@ table.insert(M, { -- Automagically resize active split
   config = true,
 })
 
+table.insert(M, { -- Smooth scrolling
+  "declancm/cinnamon.nvim",
+
+  event = "VeryLazy",
+
+  config = function()
+    require("cinnamon").setup {
+      extra_keymaps = true,
+      extended_keymaps = true,
+    }
+
+    vim.keymap.set({ "i", "n", "x" }, "<PgUp>", [[ <Cmd>lua Scroll('<C-u>', 1, 1)<CR> ]])
+    vim.keymap.set({ "i", "n", "x" }, "<PgDown>", [[ <Cmd>lua Scroll('<C-d>', 1, 1)<CR> ]])
+  end,
+})
+
 return M

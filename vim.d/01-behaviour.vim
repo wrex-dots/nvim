@@ -51,13 +51,13 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fix Vim's weird PgUp / PgDown scrolling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <PageUp> <C-U>
-vnoremap <silent> <PageUp> <C-U>
-inoremap <silent> <PageUp> <C-\><C-O><C-U>
+nmap <silent> <PageUp> <C-U>
+vmap <silent> <PageUp> <C-U>
+imap <silent> <PageUp> <C-\><C-O><C-U>
 
-nnoremap <silent> <PageDown> <C-D>
-vnoremap <silent> <PageDown> <C-D>
-inoremap <silent> <PageDown> <C-\><C-O><C-D>
+nmap <silent> <PageDown> <C-D>
+vmap <silent> <PageDown> <C-D>
+imap <silent> <PageDown> <C-\><C-O><C-D>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
