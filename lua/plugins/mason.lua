@@ -21,6 +21,7 @@ table.insert(extra_deps, { -- TreeSitter powered range selection
     local tsht = require "tsht"
 
     fox.keys.noremap.n(desc, "<Space>", tsht.nodes)
+    fox.keys.noremap.o(desc, "<Space>", tsht.nodes)
   end,
 })
 
