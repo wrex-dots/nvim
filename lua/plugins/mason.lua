@@ -114,12 +114,12 @@ return {
     },
 
     config = function()
-      local masonlsp = require("mason-lspconfig")
-      local lspconfig = require("lspconfig")
+      local masonlsp = require "mason-lspconfig"
+      local lspconfig = require "lspconfig"
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local attach_formatter_on_save = function(client, buffer)
-        if client.supports_method("textDocument/formatting") then
+        if client.supports_method "textDocument/formatting" then
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = FormatOnSave,
             buffer = buffer,
@@ -277,6 +277,7 @@ return {
       }
     end,
   },
+
   {
     "jay-babu/mason-null-ls.nvim",
 
@@ -290,7 +291,7 @@ return {
     },
 
     config = function()
-      local masonlsp = require("mason-null-ls")
+      local masonlsp = require "mason-null-ls"
       -- local null_ls = require("null-ls")
       -- local lspconfig = require("lspconfig")
       -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -299,13 +300,13 @@ return {
         -- stylua: ignore
         ensure_installed = {
           -- Formatters
-          "prettierd",  -- HTML, CSS, TS/JS, JSON, YANL...
-          "stylua",     -- Lua
+          "prettierd", -- HTML, CSS, TS/JS, JSON, YANL...
+          "stylua",    -- Lua
 
           -- Linters
-          "selene",       -- Lua
-          "actionlint",   -- Github actions
-          "vint",         -- VimScript
+          "selene",     -- Lua
+          "actionlint", -- Github actions
+          "vint",       -- VimScript
         },
 
         automatic_installation = true,
@@ -313,9 +314,7 @@ return {
         -- See `:h mason-null-ls.nvim-handlers-usage`
         ---@type table<string, fun(server_name: string)>?
         handlers = {
-          function(source, types)
-            masonlsp.default_setup(source, types)
-          end,
+          function(source, methods) masonlsp.default_setup(source, methods) end,
         },
       }
     end,
