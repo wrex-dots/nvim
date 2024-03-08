@@ -1,17 +1,102 @@
 local fox = require("foxutils")
 local FormatOnSave = vim.api.nvim_create_augroup("FormatOnSave", {})
 local FixOnSave = vim.api.nvim_create_augroup("FixOnSave", {})
+---@type LazySpec[]
+local extra_deps = {}
+
+table.insert(extra_deps, { -- TreeSitter powered range selection
+  "mfussenegger/nvim-treehopper",
+
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+  },
+
+  event = "Syntax *",
+
+  config = function()
+    local desc = "TS Hopper: Select node"
+    local tsht = require "tsht"
+
+    fox.keys.noremap.n(desc, "<Space>", tsht.nodes)
+  end,
+})
+
+table.insert(extra_deps, { -- Automatic ctags generation
+  "JMarkin/gentags.lua",
+
+  cond = fox.systemhas "ctags",
+
+  dependencies = { "nvim-lua/plenary.nvim" },
+
+  config = true,
+})
+
+table.insert(extra_deps, { -- VSCode-like inlay hints
+  "lvimuser/lsp-inlayhints.nvim",
+
+  config = function()
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("LspAttachInlayHints", {}),
+      callback = function(event)
+        if not (event.data and event.data.client_id) then return end
+
+        local buffer = event.buf
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        require("lsp-inlayhints").on_attach(client, buffer)
+      end,
+    })
+  end,
+})
+
+table.insert(extra_deps, { -- TypeScript
+  { -- Magic real-time type tooltips with // ^?
+    "marilari88/twoslash-queries.nvim",
+
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
+
+    event = "FileType typescript,typescriptreact",
+
+    keys = fox.keys.lazy({
+      {
+        "<C-S-i>",
+        vim.cmd.TwoslashQueriesInspect,
+        desc = "Inspect symbol under cursor",
+      },
+      {
+        "<C-M-i>",
+        vim.cmd.TwoslashQueriesRemove,
+        desc = "Remove all inspectors in buffer",
+      },
+    }, {
+      prefix = "TwoSlash queries: ",
+      noremap = true,
+      mode = "n",
+    }),
+
+    opts = {
+      multi_line = true,
+      highlight = "Type",
+    },
+  },
+  { -- TSServer on sterroids
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  },
+})
 
 ---@type Array<LazySpec>
 return {
-  {
+  { -- Mason
     "williamboman/mason.nvim",
 
     build = ":MasonUpdate",
 
     config = true,
   },
-  {
+
+  { -- `mason-lspconfig`: Bridge the gap between Mason and LSPConfig
     "williamboman/mason-lspconfig.nvim",
 
     dependencies = {
@@ -20,58 +105,9 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "fmbarina/pick-lsp-formatter.nvim",
 
-      -- JSON / YAML
-      "b0o/SchemaStore.nvim",
-      {
-        "lvimuser/lsp-inlayhints.nvim",
-        config = function()
-          vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("LspAttachInlayHints", {}),
-            callback = function(event)
-              if not (event.data and event.data.client_id) then
-                return
-              end
+      "b0o/SchemaStore.nvim", -- JSON / YAML
 
-              local buffer = event.buf
-              local client = vim.lsp.get_client_by_id(event.data.client_id)
-              require("lsp-inlayhints").on_attach(client, buffer)
-            end,
-          })
-        end,
-      },
-
-      -- TypeScript
-      {
-        "marilari88/twoslash-queries.nvim",
-
-        dependencies = {
-          "neovim/nvim-lspconfig",
-        },
-
-        event = "FileType typescript,typescriptreact",
-
-        keys = fox.keys.lazy({
-          {
-            "<C-S-i>",
-            vim.cmd.TwoslashQueriesInspect,
-            desc = "Inspect symbol under cursor",
-          },
-          {
-            "<C-M-i>",
-            vim.cmd.TwoslashQueriesRemove,
-            desc = "Remove all inspectors in buffer",
-          },
-        }, {
-          prefix = "TwoSlash queries: ",
-          noremap = true,
-          mode = "n",
-        }),
-
-        opts = {
-          multi_line = true,
-          highlight = "Type",
-        },
-      },
+      extra_deps,
     },
 
     config = function()
