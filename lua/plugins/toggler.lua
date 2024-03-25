@@ -9,6 +9,8 @@ return { -- Toggle Visual-selected values like true/false
   opts = {
     inverses = { -- Custom inverses
       ["based"] = "cringe",
+      ["min"] = "max",
+      ["MIN"] = "MAX",
     },
   },
 }
