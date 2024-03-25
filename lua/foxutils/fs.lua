@@ -1,5 +1,6 @@
 local M = {}
 local fs = vim.fs
+local resolve = vim.fn.resolve
 
 local HERE = debug.getinfo(1, "S").source:gsub("^@", "")
 
@@ -10,7 +11,7 @@ function M.current_file.name()
 
   if path == HERE then path = debug.getinfo(2, "S").source:gsub("^@", "") end
 
-  return fs.normalize(fs.basename(path))
+  return resolve(fs.basename(path))
 end
 
 function M.current_file.dirname()
@@ -18,7 +19,7 @@ function M.current_file.dirname()
 
   if path == HERE then path = debug.getinfo(2, "S").source:gsub("^@", "") end
 
-  return fs.normalize(fs.dirname(path))
+  return resolve(fs.dirname(path))
 end
 
 function M.current_file.path()
@@ -26,7 +27,7 @@ function M.current_file.path()
 
   if path == HERE then path = debug.getinfo(2, "S").source:gsub("^@", "") end
 
-  return fs.normalize(path)
+  return resolve(path)
 end
 
 return M
