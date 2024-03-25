@@ -2,7 +2,9 @@
 return { -- Toggle Visual-selected values like true/false
   "nguyenvukhang/nvim-toggler",
 
-  event = "VeryLazy",
+  keys = {
+    '<leader>i',
+  },
 
   opts = {
     inverses = { -- Custom inverses
