@@ -6,7 +6,7 @@
 
 ---@alias Filetype string # A filetype to assign to files matching given patterns
 
----@alias FtOverride Table<FtPattern, Filetype>
+---@alias FtOverride table<FtPattern, Filetype>
 
 ---@type Array<FtOverride>
 local overrides = {
