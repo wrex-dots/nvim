@@ -30,4 +30,17 @@ function M.current_file.path()
   return resolve(path)
 end
 
+function M.is_git_dir(path)
+  return 0
+    ~= #vim.fs.find(".git", {
+      type = "directory",
+      path = path,
+      upwards = true,
+      stop = vim.loop.os_homedir(),
+      limit = math.huge,
+    })
+end
+
+function M.cwd_is_git_dir() return M.is_git_dir(vim.fn.getcwd()) end
+
 return M

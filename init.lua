@@ -1,36 +1,37 @@
---- .lua configuration directory
-local luaconfd = vim.fn.stdpath("config") .. "/lua/config"
+--[[
+   For better comfort, it is recommened to edit it from the
+   nvim configuration's `lua/` directory, where a link to it
+   is there, named `vim-init.lua`.
 
---- Get all files recursively
-local luaconfs = vim.fs.find(function(name)
-  return name:match(".*%.lua")
-end, {
-  type = "file",
-  path = luaconfd,
-  limit = math.huge,
-})
+   This is because when you're using NeoVim from *inside*
+   this `lua/` directory, `vim` will not be marked as
+   undefined by the lua LSP, and also you'll get VERY useful
+   IntelliSense for most plugins and (n)vim APIs.
+--]]
 
--- Source all files fetched into luaconfs
-for _, conf in ipairs(luaconfs) do
-  require("config." .. vim.fs.basename(conf):gsub("%.lua$", ""))
+local fn, fs, source = vim.fn, vim.fs, vim.cmd.source
+
+local function fetch_configs(ext, path)
+  return ipairs(
+    fs.find(function(name) return name:match ".*%." .. ext .. "$" end, {
+      path = path,
+      type = "file",
+      limit = math.huge,
+    })
+  )
 end
 
--- .vim configuration files directory
-local vimconfd = vim.fn.stdpath("config") .. "/vim.d"
+local luadir = "config"
+local luaconfd = fs.normalize(fn.stdpath "config" .. "/lua/" .. luadir)
+local vimconfd = fs.normalize(fn.stdpath "config" .. "/vim.d")
 
--- Get all the .vim files from vimconfd recursively
-local vimfiles = vim.fs.find(function(name)
-  return name:match(".*%.vim")
-end, {
-  type = "file",
-  path = vimconfd,
-  limit = math.huge,
-})
-
--- Source all files fetched into vimfiles
-for _, conf in ipairs(vimfiles) do
-  vim.cmd.source(conf)
+for _, conf in fetch_configs("lua", luaconfd) do
+  require(luadir .. "." .. fs.basename(conf):gsub("%.lua$", ""))
 end
 
--- Install LazyVim if necessary, then install all configured plugins
-require("lazyconfig")
+for _, conf in fetch_configs("vim", vimconfd) do
+  source(conf)
+end
+
+-- Start plugin setup
+require "lazyconfig"
