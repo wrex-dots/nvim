@@ -21,11 +21,22 @@ local function has_prereqs()
   return true
 end
 
+local function maybe_enable()
+  local enable = has_prereqs()
+  if not enable then
+    vim.notify(
+      "[Coq.nvim] Some prerequisites aren't met, completion will not be enabled.",
+      vim.log.levels.ERROR
+    )
+  end
+  return enable
+end
+
 ---@type LazyPluginSpec
 local spec = {
   "ms-jpq/coq_nvim",
 
-  cond = has_prereqs(),
+  cond = maybe_enable(),
 
   branch = "coq",
   build = ":COQdeps",
