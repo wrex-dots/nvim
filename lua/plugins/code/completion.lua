@@ -54,10 +54,15 @@ local spec = {
     },
   },
 
-  -- Automatic and silent startup
   init = function()
     vim.g.coq_settings = {
+      -- Automatic and silent startup
       auto_start = "shut-up",
+
+      keymap = {
+        -- When editing snippets, jump to next placeholder with Shift + →
+        ["jump_to_mark"] = "<S-Right>",
+      },
     }
   end,
 }
