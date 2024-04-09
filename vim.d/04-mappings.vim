@@ -77,14 +77,6 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NORMAL: Disable last search highlights
-"
-" <leader><Enter>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <silent> <leader><cr> :noh<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NORMAL VISUAL: Move lines of text up or down
 "
 " <Alt+↑> => Move a line up

@@ -125,9 +125,6 @@ vim.opt.ignorecase = true
 -- Stephen Hawking's image.
 vim.opt.smartcase = true
 
--- Do not highlight search results (we've got a plugin for that)
-vim.opt.hlsearch = false
-
 -- Use "magic" syntax for regex by default.
 -- It is STRONGLY advised that you keep this on, see `:h magic`.
 vim.opt.magic = true
