@@ -8,8 +8,7 @@
   - `plugins/mason/ensure-installed.lua`
 --]]
 
-local function plug(mod) return require("plugins.code.mason." .. mod) end
-local ensure_installed = plug "ensure-installed"
+local ensure_installed = require "plugins.code.mason.ensure-installed"
 
 local mason = {
   -- Bridge the gap between Mason and LSPConfig
@@ -19,7 +18,7 @@ local mason = {
   ft = "*",
   priority = 1,
 
-  dependencies = plug "deps",
+  dependencies = require "plugins.code.mason.deps",
 
   config = function()
     local masonlsp = require "mason-lspconfig"
@@ -45,7 +44,7 @@ local mason = {
       end
     end
 
-    local handlers = plug "handlers" {
+    local handlers = require "plugins.code.mason.handlers" {
       lspconfig = lspconfig,
       capabilities = capabilities,
       hook_fmt = attach_formatter_on_save,

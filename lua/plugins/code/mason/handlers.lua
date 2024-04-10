@@ -1,4 +1,4 @@
-local langs = require "plugins.code.lang"
+local langs = require("plugins.code.lang").langs
 local Handlers = {}
 
 ---@class LspConfigModule: table
@@ -17,11 +17,6 @@ local Handlers = {}
 ---@alias LspHandlerFactory fun(T: LspTools): function
 ---@alias LspHandlerFactoryDict table<string, LspHandlerFactory>
 
----@type fun(module: string): LspHandlerFactoryDict
-local function get(module)
-  return require("plugins.code.lang." .. module .. ".lspconfig")
-end
-
 local function get_handlers(T)
   Handlers[1] = function(lang)
     T.lspconfig[lang].setup {
@@ -31,11 +26,18 @@ local function get_handlers(T)
   end
 
   for _, module in ipairs(langs) do
-    local factories = get(module)
-    if factories ~= true then
-      for srv, factory in pairs(factories) do
-        Handlers[srv] = factory(T)
+    ---@type LspHandlerFactoryDict
+    local loaded, factories =
+      pcall(require, "plugins.code.lang." .. module .. ".lspconfig")
+
+    if loaded then
+      if factories ~= true then
+        for srv, factory in pairs(factories) do
+          Handlers[srv] = factory(T)
+        end
       end
+    else
+      print("Couldn't load LSP config for `" .. module .. "`!")
     end
   end
 

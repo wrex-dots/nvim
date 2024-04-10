@@ -10,7 +10,7 @@ local code = {
   plug "comment",
 }
 
-for _, language_plugin in pairs(plug "lang") do
+for _, language_plugin in pairs(require("plugins.code.lang").plugins) do
   table.insert(code, language_plugin)
 end
 

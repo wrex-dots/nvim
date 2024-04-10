@@ -28,5 +28,5 @@ local function factory(T)
 end
 
 return {
-  [server] = factory
+  [server] = factory,
 }

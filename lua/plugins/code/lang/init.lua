@@ -1,5 +1,7 @@
 local foxfs = require "foxutils.fs"
 
+local M = {}
+
 local language_plugins = {}
 local langspath = foxfs.current_file.dirname()
 local langsmodule = vim.fs.basename(langspath)
@@ -52,4 +54,7 @@ for _, path in ipairs(langsdirs) do
   ::SKIP_DIR::
 end
 
-return language_plugins
+M.plugins = language_plugins
+M.langs = vim.tbl_map(vim.fs.basename, langsdirs)
+
+return M
