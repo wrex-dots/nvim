@@ -27,7 +27,7 @@ local spec = {
         desc = "Show for current buffer",
       },
     }, {
-      prefix = "Code Actions",
+      prefix = "Code Actions: ",
       noremap = true,
       silent = true,
       mode = { "n", "x" },
