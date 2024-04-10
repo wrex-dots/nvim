@@ -30,14 +30,15 @@ local function get_handlers(T)
     local loaded, factories =
       pcall(require, "plugins.code.lang." .. module .. ".lspconfig")
 
-    if loaded then
-      if factories ~= true then
-        for srv, factory in pairs(factories) do
-          Handlers[srv] = factory(T)
-        end
+    if loaded and (factories ~= true) then
+      for srv, factory in pairs(factories) do
+        Handlers[srv] = factory(T)
       end
-    else
-      print("Couldn't load LSP config for `" .. module .. "`!")
+    elseif vim.opt.verbose:get() > 0 then
+      vim.notify(
+        "No LSP configuration for language `" .. module .. "`",
+        vim.log.levels.WARN
+      )
     end
   end
 
