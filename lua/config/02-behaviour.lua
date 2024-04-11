@@ -4,11 +4,10 @@ vim.opt.exrc = true
 vim.opt.secure = true
 
 -- Use a POSIX-compliant shell instead of Fish
-if vim.opt.shell == ".*fish$" then
+if vim.opt.shell:get() == "" or vim.opt.shell:get():match ".*fish$" then
   local has, path = vim.fn.executable, vim.fn.exepath
-  local maybe = function(shell) return has(shell) and path(shell) end
-
-  vim.opt.shell = maybe "zsh" or maybe "bash" or "sh"
+  local maybe = function(shell) return has(shell) == 1 and path(shell) end
+  vim.opt.shell = maybe "zsh" or maybe "bash" or maybe "sh" or "sh"
 end
 
 -- Command history

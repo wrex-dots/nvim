@@ -36,4 +36,4 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use Unix as the standard file type when possible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
