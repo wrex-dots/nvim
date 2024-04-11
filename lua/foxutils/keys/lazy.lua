@@ -1,12 +1,12 @@
 ---@class LazyKeyOptions
----@field mode? string|string[]
+---@field mode?    string|string[]
 ---@field noremap? boolean
----@field remap? boolean
----@field expr? boolean
+---@field remap?   boolean
+---@field expr?    boolean
 
 ---@class LazyKey: LazyKeyOptions
----@field [1] string                  lhs
----@field [2]? string | fun() | false rhs
+---@field [1]   string                 lhs
+---@field [2]?  string | fun() | false rhs
 ---@field desc? string
 
 ---@class LazyKeyBuilderOptions: LazyKeyOptions
