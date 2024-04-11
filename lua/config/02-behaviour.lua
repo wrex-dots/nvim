@@ -101,7 +101,7 @@ end
 
 -- Display your current position inside current buffer in the statusbar
 vim.opt.ruler = true
-vim.opt.rulerformat = "L%l:%c [%V%=%P]"
+vim.opt.rulerformat = "L%l:%c (%p%%) [%V%=%P]"
 
 -- Hide abandonned buffers
 vim.opt.hidden = true
@@ -130,8 +130,7 @@ vim.opt.magic = true
 
 -- When hovering over a bracket or paren, highlight its matching pair.
 vim.opt.showmatch = true
--- Do it instantly.
--- This value is in orders or 1/10 seconds, for compatibility reasons.
+-- Do it instantly. (This value is in tenths of seconds, for compatibility reasons.)
 vim.opt.matchtime = 0
 
 -- Disable insufferable error bells
