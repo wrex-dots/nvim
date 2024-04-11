@@ -3,14 +3,20 @@ local fox = require "foxutils"
 local spec = {
   "mfussenegger/nvim-treehopper",
 
-  keys = "<Space>",
-
-  config = function()
-    local desc = "TS Hopper: Select node"
+  keys = function()
     local tsht = require "tsht"
 
-    fox.keys.noremap.n(desc, "<Space>", tsht.nodes)
-    fox.keys.noremap.o(desc, "<Space>", tsht.nodes)
+    return fox.keys.lazy({
+      {
+        "<Space>",
+        tsht.nodes,
+        desc = "Select tree-sitter node",
+      },
+    }, {
+      prefix = "TS Hopper: ",
+      mode = { "n", "v", "o" },
+      noremap = true,
+    })
   end,
 }
 
