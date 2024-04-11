@@ -25,7 +25,7 @@ set background=dark
 "
 " Terminal is superior anyway.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("gui_running")
+if has('gui_running')
     set guioptions-=T
     set guioptions-=e
     set t_Co=256
