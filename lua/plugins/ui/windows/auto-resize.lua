@@ -9,7 +9,7 @@ local spec = {
     "anuvyklack/animation.nvim",
   },
 
-  config = function() print "Loaded Windows.nvim" end,
+  config = true,
 }
 
 return spec
