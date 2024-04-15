@@ -14,7 +14,7 @@ local spec = {
     vim.keymap.set(
       { "n", "v" },
       "<leader><Cr>",
-      function() vim.opt.hlsearch = false end,
+      vim.cmd.nohlsearch,
       { noremap = true }
     )
   end,
