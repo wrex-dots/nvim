@@ -28,8 +28,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Not everything is written in here, if you want to know all the defaults that you can override,
 -- check here: https://github.com/folke/lazy.nvim
 require("lazy").setup {
-  -- Lua module to load specs from ($XDG_CONFIG_HOME/nvim/lua/plugins)
-  -- Will automatically merge all specs returned from plugins/**/*.lua
+  -- Lua module to load specs from `stdpath('config')/lua/plugins`
+  -- Will automatically merge all specs returned from modules inside `plugins`.
   import = "/plugins",
 
   -- Lazy load plugins by default
@@ -44,9 +44,10 @@ require("lazy").setup {
   -- Cotrol installing plugins automatically
   install = {
     missing = true, -- If a plugin is missing on startup, install it
-    colorscheme = { -- Try to load one of these color schemes during start-up install phase
+    -- Try to load one of these color schemes during start-up install phase
+    -- I've never managed to get it to work so... weird.
+    colorscheme = {
       "duskfox",
-      "habamax",
     },
   },
 
