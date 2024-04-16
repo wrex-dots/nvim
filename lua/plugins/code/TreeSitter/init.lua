@@ -1,3 +1,4 @@
+local fox = require "foxutils"
 local function plug(mod) return require("plugins.code.TreeSitter." .. mod) end
 
 local spec = {
@@ -39,6 +40,42 @@ local spec = {
       lsp_interop = { enable = true },
     },
   },
+
+  keys = function()
+    local function peek(textobj)
+      return function() vim.cmd.TSTextobjectPeekDefinitionCode(textobj) end
+    end
+
+    return fox.keys.lazy({
+      {
+        "<C-p>if",
+        peek "@function.inner",
+        mode = { "n", "i" },
+        desc = "Peek inner function",
+      },
+      {
+        "<C-p>af",
+        peek "@function.outer",
+        mode = { "n", "i" },
+        desc = "Peek outer function",
+      },
+      {
+        "<C-p>ic",
+        peek "@class.inner",
+        mode = { "n", "i" },
+        desc = "Peek inner class",
+      },
+      {
+        "<C-p>ac",
+        peek "@class.outer",
+        mode = { "n", "i" },
+        desc = "Peek outer class",
+      },
+    }, {
+      desc = "TreeSitter: ",
+      noremap = true,
+    })
+  end,
 }
 
 return {
