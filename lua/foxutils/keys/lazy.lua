@@ -12,7 +12,7 @@
 ---@class LazyKeyBuilderOptions: LazyKeyOptions
 ---@field prefix? string Prefix for the keys' description
 
----Build an array of keys complying with `LazySpec`'s `keys` property.
+---Build an array of keys complying with `LazyPluginSpec`'s `keys` property.
 ---@param keys  LazyKey[]             A table of keys to set up
 ---@param opts? LazyKeyBuilderOptions Default options to apply to all the keys (will not override per-key options)
 ---@return LazyKeys[]
