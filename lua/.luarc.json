@@ -3,5 +3,8 @@
   "workspace.ignoreDir": [".undotree"],
     "diagnostics.disable": [
         "assign-type-mismatch"
+    ],
+    "diagnostics.globals": [
+        "vim"
     ]
 }
