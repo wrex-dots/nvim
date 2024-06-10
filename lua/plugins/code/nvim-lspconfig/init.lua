@@ -93,11 +93,11 @@ local spec = {
 
       vim.api.nvim_create_autocmd({ "InsertEnter" }, {
         group = InlayHintsToggle,
-        callback = function() vim.lsp.buf.inlay_hint(0, true) end,
+        callback = function() vim.lsp.inlay_hint.enable(false, { bufnr = 0 }) end,
       })
       vim.api.nvim_create_autocmd({ "InsertLeave" }, {
         group = InlayHintsToggle,
-        callback = function() vim.lsp.buf.inlay_hint(0, false) end,
+        callback = function() vim.lsp.inlay_hint.enable(true, { bufnr = 0 }) end,
       })
     end
   end,
