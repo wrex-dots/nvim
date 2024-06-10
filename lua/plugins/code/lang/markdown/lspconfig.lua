@@ -4,3 +4,10 @@ local server = "marksman"
 ensure["mason"]:add {
   server,
 }
+
+ensure["tree-sitter"]:add {
+  "markdown",
+  "markdown_inline",
+  "vim",
+  "vimdoc",
+}
