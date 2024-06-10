@@ -9,6 +9,12 @@ local spec = {
     "rafamadriz/friendly-snippets",
     "molleweide/LuaSnip-snippets.nvim",
     "honza/vim-snippets",
+    {
+      "mireq/luasnip-snippets",
+      config = function(_self, opts)
+        require("luasnip_snippets.common.snip_utils").setup(opts or {})
+      end,
+    },
   },
 
   build = "make install_jsregexp",
@@ -17,6 +23,7 @@ local spec = {
 
   config = function()
     local luasnip = require "luasnip"
+    local utils = require "luasnip_snippets.snip_utils"
 
     luasnip.setup {
       keep_roots = true,
@@ -25,6 +32,9 @@ local spec = {
       enable_autosnippets = true,
       update_events = { "TextChanged", "TextChangedI" },
       delete_check_events = { "TextChanged" },
+
+      load_ft_func = utils.load_ft_func,
+      ft_func = utils.ft_func,
     }
 
     require("luasnip.loaders.from_vscode").lazy_load()
