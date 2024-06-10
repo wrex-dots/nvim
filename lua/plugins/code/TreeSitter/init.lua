@@ -1,5 +1,6 @@
 local fox = require "foxutils"
 local function plug(mod) return require("plugins.code.TreeSitter." .. mod) end
+local ensure_installed = require "plugins.code.lang.ensure-installed"
 
 local spec = {
   "nvim-treesitter/nvim-treesitter",
@@ -14,20 +15,10 @@ local spec = {
   ---@type TSConfig
   ---@diagnostic disable-next-line: missing-fields
   opts = {
-    auto_install          = true,
+    auto_install = true,
 
-    ensure_installed      = {
-      "c",
-      "cpp",
+    ensure_installed  = ensure_installed['tree-sitter']:add {
       "hypr",
-      "javascript",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
     },
 
     indent                = { enable = true },
@@ -40,6 +31,8 @@ local spec = {
       lsp_interop = { enable = true },
     },
   },
+
+  config = function(_self, opts) require("nvim-treesitter.configs").setup(opts) end,
 
   keys = function()
     local function peek(textobj)

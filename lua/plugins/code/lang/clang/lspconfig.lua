@@ -5,6 +5,12 @@ ensure["mason"]:add {
   server,
 }
 
+ensure["tree-sitter"]:add {
+  "c",
+  "cpp",
+  "objc",
+}
+
 ---@type fun(T: LspTools): fun(client: lsp.Client, buffer: integer) : nil
 local function on_attach(T)
   return function(client, buffer)

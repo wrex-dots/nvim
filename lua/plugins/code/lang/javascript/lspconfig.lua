@@ -9,6 +9,11 @@ ensure["mason"]:add {
 ensure["null-ls"]:add {
   "prettierd",
 }
+ensure["tree-sitter"]:add {
+  "javascript",
+  "typescript",
+  "tsx",
+}
 
 local EslintFixAll = vim.api.nvim_create_augroup("EslintFixAll", {})
 
