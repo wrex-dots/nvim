@@ -1,3 +1,4 @@
+local foxfs = require("foxutils").fs
 local ensure = require "plugins.code.lang.ensure-installed"
 local server = "tsserver"
 
@@ -9,6 +10,11 @@ ensure["mason"]:add {
 ensure["null-ls"]:add {
   "prettierd",
 }
+vim.fn.setenv(
+  "PRETTIERD_DEFAULT_CONFIG",
+  foxfs.current_file.dirname() .. "/.prettierrc.yaml"
+)
+
 ensure["tree-sitter"]:add {
   "javascript",
   "typescript",
@@ -77,5 +83,5 @@ local factory = function(T)
 end
 
 return {
-  [server] = factory
+  [server] = factory,
 }
