@@ -1,3 +1,5 @@
+-- LazyVim
+
 local fox = require "foxutils"
 
 assert(
