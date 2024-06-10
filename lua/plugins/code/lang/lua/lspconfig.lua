@@ -1,6 +1,19 @@
 local ensure = require "plugins.code.lang.ensure-installed"
 local server = "lua_ls"
 
+ensure["mason"]:add {
+  server,
+}
+
+ensure["null-ls"]:add {
+  "selene",
+  "stylua",
+}
+
+ensure["tree-sitter"]:add {
+  "lua",
+}
+
 ---@type LspHandlerFactory
 local function factory(T)
   return function()
@@ -19,15 +32,6 @@ local function factory(T)
   end
 end
 
-ensure["mason"]:add {
-  server,
-}
-
-ensure["null-ls"]:add {
-  "selene",
-  "stylua",
-}
-
 return {
-  [server] = factory
+  [server] = factory,
 }
