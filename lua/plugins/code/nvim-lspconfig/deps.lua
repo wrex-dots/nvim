@@ -6,6 +6,7 @@ table.insert(deps, {
   "folke/neodev.nvim",
 
   ft = "lua",
+  cond = vim.fn.has "nvim-0.10" == 0,
 
   config = true,
 })
