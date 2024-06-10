@@ -8,7 +8,7 @@
   - `plugins/mason/ensure-installed.lua`
 --]]
 
-local ensure_installed = require "plugins.code.mason.ensure-installed"
+local ensure_installed = require "plugins.code.lang.ensure-installed"
 
 local mason = {
   -- Bridge the gap between Mason and LSPConfig

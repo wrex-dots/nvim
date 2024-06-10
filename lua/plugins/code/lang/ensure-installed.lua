@@ -29,6 +29,7 @@ end
 local EI = {
   ["mason"] = setmetatable({}, { __index = ServerList }),
   ["null-ls"] = setmetatable({}, { __index = ServerList }),
+  ["tree-sitter"] = setmetatable({}, { __index = ServerList }),
 }
 
 return EI

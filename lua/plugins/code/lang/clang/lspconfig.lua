@@ -1,4 +1,4 @@
-local ensure = require "plugins.code.mason.ensure-installed"
+local ensure = require "plugins.code.lang.ensure-installed"
 local server = "clangd"
 
 ensure["mason"]:add {
