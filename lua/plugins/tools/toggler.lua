@@ -11,6 +11,7 @@ return { -- Toggle Visual-selected values like true/false
       ["based"] = "cringe",
       ["min"] = "max",
       ["MIN"] = "MAX",
+      ["inner"] = "outer",
     },
   },
 }
