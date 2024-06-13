@@ -1,14 +1,16 @@
 return {
-	{
-		"kylechui/nvim-surround",
+  {
+    "kylechui/nvim-surround",
 
-		keys = {
-			"ys",
-			"ds",
-			"cs",
-			"<S-s>",
-		},
+    keys = {
+      "ys",
+      "ds",
+      "cs",
+      "<S-s>",
+    },
 
-		config = true,
-	},
+    init = function() vim.keymap.del({ "n" }, "<S-s>") end,
+
+    config = true,
+  },
 }
