@@ -88,6 +88,8 @@ local spec = {
     })
 
     if vim.fn.has "nvim-0.10" == 1 then
+      vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+
       local InlayHintsToggle =
         vim.api.nvim_create_augroup("InlayHintsToggle", {})
 
