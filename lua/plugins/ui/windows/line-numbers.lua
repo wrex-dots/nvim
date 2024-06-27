@@ -1,4 +1,4 @@
-local foxfs = require "foxutils.fs"
+-- LazyVim
 
 ---@type LazyPluginSpec[]
 local linenums = {
@@ -6,13 +6,9 @@ local linenums = {
     "airblade/vim-gitgutter",
 
     init = function() vim.g.gitgutter_highlight_linenrs = 1 end,
-
-    enabled = foxfs.cwd_is_git_dir(),
   },
   {
     "kennykaye/vim-relativity",
-
-    event = "BufLeave",
 
     init = function()
       local ignored_fts = {
@@ -21,10 +17,10 @@ local linenums = {
 
       vim.o.number = true
       vim.o.relativenumber = true
+      vim.g.relativity_enabled_on_start = 1
+      vim.g.relativity_focus_toggle = 1
       vim.g.relativity_filetype_ignore = ignored_fts
     end,
-
-    config = function() vim.cmd.Relativity() end,
   },
 }
 
