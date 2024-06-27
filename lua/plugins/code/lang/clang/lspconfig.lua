@@ -1,3 +1,7 @@
+---LaziVim
+
+local fox = require "foxutils"
+
 local ensure = require "plugins.code.lang.ensure-installed"
 local server = "clangd"
 
@@ -16,9 +20,40 @@ local function on_attach(T)
   return function(client, buffer)
     T.hook_fmt(client, buffer)
 
-    local ih = require "clangd_extensions.inlay_hints"
-    ih.setup_autocmd()
-    ih.set_inlay_hints()
+    -- local ih = require "clangd_extensions.inlay_hints"
+    -- ih.setup_autocmd()
+    -- ih.set_inlay_hints()
+
+    -- local confs = vim.fs.find(".clang-format", {
+    --   type = "file",
+    --   stop = vim.loop.os_homedir(),
+    -- })
+    --
+    -- if not #confs ~= 0 then return end
+    if not vim.loop.fs_stat(vim.fs.normalize "~/.clang-format") then return end
+
+    if not fox.systemhas "yq" then
+      vim.notify_once(
+        "You should install `yq` to allow automatically setting buffer options based .clang-format settings. https://github.com/mikefarah/yq",
+        vim.log.levels.INFO
+      )
+      return
+    end
+
+    local sysobj = vim
+      .system(
+        { "yq", ".TabWidth", vim.fs.normalize "~/.clang-format" },
+        { text = true }
+      )
+      :wait()
+
+    local twstr = sysobj.stdout
+    if #twstr == 0 then return end
+
+    local twval = tonumber(twstr)
+
+    vim.o.shiftwidth = twval
+    vim.o.tabstop = twval
   end
 end
 
@@ -34,7 +69,7 @@ local function factory(T)
 
     T.lspconfig.clangd.setup {
       capabilities = T.capabilities,
-      on_attach = on_attach,
+      on_attach = on_attach(T),
     }
   end
 end
