@@ -30,6 +30,36 @@ function M.current_file.path()
   return resolve(path)
 end
 
+---Look upwards to find any directory or file that match given name.
+--
+---@param  name string Name of a file or directory to find up the fs tree
+--
+---@return table<string> matches A table of paths to directories and files matched by name
+function M.find_upwards(name)
+  return vim.fs.find(name, {
+    upwards = true,
+    stop = "/home",
+    limit = math.huge,
+  })
+end
+
+---Look upwards to find the first directory or file that matches given name.
+--
+---@param  name string Name of a file or directory to find up the fs tree
+--
+---@return boolean       found True if a match has been found, false otherwise
+---@return string | nil  match A path to a directory or file matched by name
+function M.find_upwards_first(name)
+  local found = M.find_upwards(name)
+  if #found == 0 then return false, nil end
+  return true, found[1]
+end
+
+---Check that a given path is inside a git directory.
+--
+---@param  path string Path to a directory to check
+--
+---@return boolean
 function M.is_git_dir(path)
   return 0
     ~= #vim.fs.find(".git", {
