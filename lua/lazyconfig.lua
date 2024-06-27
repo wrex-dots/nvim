@@ -11,6 +11,8 @@ assert(
 
 -- Installation path (`$XDG_CONFIG_HOME/nvim/lazy`)
 local lazypath = vim.fn.stdpath "config" .. "/lazy"
+-- selene: allow(global_usage)
+function _G.get_lazypath() return lazypath end
 
 -- Automatically install LazyVim
 if not vim.loop.fs_stat(lazypath) then
