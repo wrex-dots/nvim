@@ -7,13 +7,22 @@ return { -- Toggle Visual-selected values like true/false
   },
 
   opts = {
-    inverses = { -- Custom inverses
-      ["MIN"] = "MAX",
-      ["ON"] = "OFF",
+    inverses = {
       ["based"] = "cringe",
       ["inner"] = "outer",
       ["min"] = "max",
+      ["MIN"] = "MAX",
       ["on"] = "off",
+      ["ON"] = "OFF",
+      ["yes"] = "no",
+      ["YES"] = "NO",
+      ["old"] = "new",
+      ["OLD"] = "NEW",
+      ["&&"] = "||",
+      ["and"] = "or",
+      ["AND"] = "OR",
     },
   },
+
+  config = function(_self, opts) require("nvim-toggler").setup(opts) end,
 }
