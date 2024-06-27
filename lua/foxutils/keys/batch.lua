@@ -54,8 +54,8 @@ end
 ---   },
 --- }
 --- ```
----@param maptable MapBatch A whole bunch of mappings 😌
----@param opts?    MapOptions   Options to apply to ALL of the mappings (options set in mappings will have precedence)
+---@param maptable MapBatch   A whole bunch of mappings 😌
+---@param opts?    MapOptions Options to apply to ALL of the mappings (options set in mappings will have precedence)
 local function batchmap(maptable, opts)
   local t = is_batch_table(maptable)
 

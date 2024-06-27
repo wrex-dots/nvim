@@ -7,7 +7,7 @@
 ---| 'v' # Visual
 ---| 'x' # Select and Visual
 
----@alias MapModeTable Array<MapModeStr>
+---@alias MapModeTable MapModeStr[]
 
 ---@alias mode
 ---| MapModeStr   # Single mode
@@ -35,11 +35,11 @@
 ---@field [4] MapOptions Options for the mapping
 
 ---@class MapBatchModes
----@field i Array<MapBatchItem>? Insert
----@field n Array<MapBatchItem>? Normal
----@field o Array<MapBatchItem>? Operator-pending
----@field v Array<MapBatchItem>? Visual
----@field x Array<MapBatchItem>? Select
+---@field i MapBatchItem[]? Insert
+---@field n MapBatchItem[]? Normal
+---@field o MapBatchItem[]? Operator-pending
+---@field v MapBatchItem[]? Visual
+---@field x MapBatchItem[]? Select
 
 ---@class MapBatch
 ---@field map     MapBatchModes? Remappable
