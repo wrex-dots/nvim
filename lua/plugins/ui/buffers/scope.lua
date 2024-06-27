@@ -1,3 +1,5 @@
+-- LazyVim
+
 ---Restrict buffers' visibility to their own tabs
 ---@type LazyPluginSpec
 local spec = {

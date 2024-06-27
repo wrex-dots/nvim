@@ -40,8 +40,6 @@ local function on_attach(bufno)
     "J", -- Last sibling
     "g?", -- Help
     "<C-K>", -- Info
-    "<C-V>", -- Open split (vertical)
-    "<C-X>", -- Open split (horizontal)
   }
 
   local toAdd = {

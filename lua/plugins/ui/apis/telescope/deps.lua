@@ -1,11 +1,14 @@
----@type LazySpec[]
-local deps = {}
+-- LazyVim
 
-table.insert(deps, "nvim-telescope/telescope.nvim")
+local exts = require "plugins.ui.apis.telescope.exts"
 
-table.insert(deps, {
+---@type LazyPluginSpec
+local fzf = {
   "nvim-telescope/telescope-fzf-native.nvim",
-  build = "make",
-})
 
-return deps
+  build = "make",
+
+---@type LazyPlugin[]
+return {
+  fzf,
+}

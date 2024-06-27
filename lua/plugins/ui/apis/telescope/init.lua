@@ -1,5 +1,5 @@
+-- LazyVim
 local fox = require "foxutils"
-local function plug(mod) return require("plugins.ui.apis.telescope." .. mod) end
 
 local no_ripgrep_message = [[
 I recommend you install RipGrep on your machine (or make it available in your PATH).
@@ -17,8 +17,8 @@ Installing it will immediately greatly improve Telescope's perofmance.
 local spec = {
   "nvim-telescope/telescope.nvim",
 
-  dependencies = plug "deps",
-  keys = plug "keys",
+  dependencies = require "plugins.ui.apis.telescope.deps",
+  keys = require "plugins.ui.apis.telescope.keys",
 
   init = function()
     if not fox.systemhas "rg" then
@@ -29,23 +29,19 @@ local spec = {
     end
   end,
 
-  config = function()
+  opts = {
+    extensions = require "plugins.ui.apis.telescope.exts",
+  },
+
+  config = function(_, opts)
     local tele = require "telescope"
-    tele.setup {}
+    tele.setup(opts)
+
+    ---@see telescope-fzf-native in `plugins.ui.apis.telescope.deps`
     tele.load_extension "fzf"
 
-    local maybe_load_extension = function(module, nameIfDifferentFromModule)
-      local ok, _ = pcall(require, module)
-      if ok then tele.load_extension(nameIfDifferentFromModule or module) end
-    end
-
-    local extensions = {
-      { "scope" },
-    }
-
-    for _, ext in ipairs(extensions) do
-      maybe_load_extension(ext[1], ext[2])
-    end
+    ---@see Scope.nvim in `plugins.ui.buffers.scope`
+    tele.load_extension "scope"
   end,
 }
 
