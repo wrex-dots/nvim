@@ -1,8 +1,4 @@
-local function plug(mod) return require("plugins.code.snippets." .. mod) end
-
-local snippets = {
-  plug "luasnip",
-  plug "neogen",
+return {
+  require "plugins.code.snippets.luasnip",
+  require "plugins.code.snippets.neogen",
 }
-
-return snippets
