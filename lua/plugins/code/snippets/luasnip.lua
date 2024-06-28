@@ -1,3 +1,5 @@
+-- LazyVim
+
 local foxfs = require "foxutils.fs"
 local here = foxfs.current_file.dirname()
 
@@ -23,7 +25,7 @@ local spec = {
 
   config = function()
     local luasnip = require "luasnip"
-    local utils = require "luasnip_snippets.snip_utils"
+    local utils = require "luasnip_snippets.common.snip_utils"
 
     luasnip.setup {
       keep_roots = true,
