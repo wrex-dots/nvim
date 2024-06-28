@@ -1,3 +1,5 @@
+-- LazyVim
+
 local fox = require "foxutils"
 
 ---@type LazyPluginSpec
@@ -11,7 +13,9 @@ return {
 
   keys = function()
     local neo = require "neogen"
-    local gen = function(t) neo.generate { type = t } end
+    local gen = function(t)
+      return function() neo.generate { type = t } end
+    end
 
     return fox.keys.lazy({
       {
