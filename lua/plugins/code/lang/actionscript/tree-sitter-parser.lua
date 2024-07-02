@@ -1,4 +1,4 @@
-local fox = require "foxutils"
+-- LazyVim
 
 ---@type LazySpec
 local tsparser = {
@@ -6,7 +6,7 @@ local tsparser = {
 
   ft = "actionscript",
 
-  config = function(self)
+  init = function(self)
     local psconf = require("nvim-treesitter.parsers").get_parser_configs()
 
     ---@type ParserInfo
