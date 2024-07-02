@@ -17,9 +17,7 @@ local spec = {
   opts = {
     auto_install = true,
 
-    ensure_installed  = ensure_installed['tree-sitter']:add {
-      "hypr",
-    },
+    ensure_installed  = ensure_installed['tree-sitter'],
 
     indent                = { enable = true },
     highlight             = { enable = true },
