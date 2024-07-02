@@ -72,7 +72,7 @@ local spec = {
                 { "Show documentation",       "<S-K>",   buf.hover },
                 { "Show signature help",      "<C-K>",   buf.signature_help },
                 { "Go to declaration",        "gD",      buf.declaration },
-                { "Rename symbol",            "<F2>",    buf.rename },
+                { "Rename symbol",            "<leader>r",    buf.rename },
                 { "Format document",          "<F10>",   async_format },
                 { "Select default formatter", "<C-F10>", pick_formatter },
               },

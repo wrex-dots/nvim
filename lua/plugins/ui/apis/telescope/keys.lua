@@ -25,27 +25,27 @@ return function()
       desc = "Emoji picker",
     },
     {
-      "<F9>",
+      "<leader>fqf",
       tele.quickfix,
       desc = "Quickfix list",
     },
     {
-      "<F8>",
+      "<leader>fts",
       tele.treesitter,
       desc = "TreeSitter tags",
     },
     {
-      "<S-F8>",
+      "<leader>fds",
       tele.lsp_document_symbols,
       desc = "LSP Synbols",
     },
     {
-      "<F11>",
+      "<leader>dd",
       function() tele.diagnostics "bufnr=0" end,
       desc = "LSP diagnostics",
     },
     {
-      "<C-F11>",
+      "<leader>dD",
       tele.diagnostics,
       desc = "LSP diagnostics (all buffers)",
     },

@@ -26,7 +26,7 @@ local spec = {
 
   keys = fox.keys.lazy({
     {
-      "<F5>",
+      "<leader>u",
       vim.cmd.UndotreeToggle,
       desc = "Toggle",
     },
@@ -34,7 +34,7 @@ local spec = {
     prefix = "UndoTree: ",
     silent = true,
     noremap = true,
-    mode = { "n", "i", "x" },
+    mode = { "n", "x" },
   }),
 }
 
