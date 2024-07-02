@@ -6,5 +6,10 @@ return {
 
   priority = 99,
 
+  opts = {
+    silent = false,
+    autocmd = true,
+  },
+
   config = true,
 }
