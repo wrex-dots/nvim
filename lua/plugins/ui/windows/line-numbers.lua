@@ -13,6 +13,8 @@ local linenums = {
     init = function()
       local ignored_fts = {
         "NvimTree",
+        "toggleterm",
+        "dap-repl",
       }
 
       vim.o.number = true
