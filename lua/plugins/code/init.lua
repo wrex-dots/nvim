@@ -2,6 +2,7 @@ local code = {
   require "plugins.code.mason",
   require "plugins.code.nvim-lspconfig",
   require "plugins.code.TreeSitter",
+  require "plugins.code.debugger",
 
   require "plugins.code.snippets",
   require "plugins.code.completion",
