@@ -38,6 +38,7 @@
 ---@field i MapBatchItem[]? Insert
 ---@field n MapBatchItem[]? Normal
 ---@field o MapBatchItem[]? Operator-pending
+---@field t MapBatchItem[]? Terminal
 ---@field v MapBatchItem[]? Visual
 ---@field x MapBatchItem[]? Select
 

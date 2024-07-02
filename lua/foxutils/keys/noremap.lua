@@ -24,6 +24,7 @@ return {
   i = get_setter "i",
   n = get_setter "n",
   o = get_setter "o",
-  x = get_setter "x",
+  t = get_setter "t",
   v = get_setter "v",
+  x = get_setter "x",
 }
