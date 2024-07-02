@@ -1,15 +1,13 @@
-local function plug(mod) return require("plugins.tools." .. mod) end
-
 return {
-  plug "discord-rtp",
-  plug "hexedit",
-  plug "image-preview",
-  plug "keys-helper",
-  plug "lazygit",
-  plug "per-project-config",
-  plug "structural-search-replace",
-  plug "surround",
-  plug "toggler",
-  plug "undotree",
-  plug "wakatime",
+  require "plugins.tools.discord-rtp",
+  require "plugins.tools.hexedit",
+  require "plugins.tools.image-preview",
+  require "plugins.tools.keys-helper",
+  require "plugins.tools.lazygit",
+  require "plugins.tools.per-project-config",
+  require "plugins.tools.structural-search-replace",
+  require "plugins.tools.surround",
+  require "plugins.tools.toggler",
+  require "plugins.tools.undotree",
+  require "plugins.tools.wakatime",
 }

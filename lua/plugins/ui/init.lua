@@ -1,16 +1,15 @@
-local function plug(mod) return require("plugins.ui." .. mod) end
-
 ---@type LazySpec[]
 local ui = {
-  plug "apis",
+  require "plugins.ui.apis",
 
-  plug "theme",
+  require "plugins.ui.theme",
 
-  plug "tab-bar",
-  plug "file-tree",
+  require "plugins.ui.file-tree",
+  require "plugins.ui.tab-bar",
+  require "plugins.ui.terminal",
 
-  plug "windows",
-  plug "buffers",
+  require "plugins.ui.windows",
+  require "plugins.ui.buffers",
 }
 
 return ui
