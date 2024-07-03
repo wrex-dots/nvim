@@ -1,7 +1,6 @@
 vim.filetype.add {
   extension = {
     ["rasi"] = "rasi",
-    ["as"] = "actionscript",
   },
   pattern = {
     [".*/hypr/.*%.conf"] = "hyprlang",

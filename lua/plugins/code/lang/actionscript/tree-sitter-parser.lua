@@ -7,6 +7,7 @@ local tsparser = {
   ft = "actionscript",
 
   init = function(self)
+    vim.filetype.add { extension = { ["as"] = "actionscript" } }
     local psconf = require("nvim-treesitter.parsers").get_parser_configs()
 
     ---@type ParserInfo
