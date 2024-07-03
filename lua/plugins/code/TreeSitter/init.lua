@@ -30,7 +30,7 @@ local spec = {
     },
   },
 
-  config = function(_self, opts) require("nvim-treesitter.configs").setup(opts) end,
+  config = function(_, opts) require("nvim-treesitter.configs").setup(opts) end,
 
   keys = function()
     local function peek(textobj)
