@@ -1,31 +1,77 @@
+-- LazyVim
+
+local movement_keystrokes = {
+  "#",
+  "$",
+  "*",
+  "0",
+  "<C-End>",
+  "<C-Home>",
+  "<C-b>",
+  "<C-d>",
+  "<C-e>",
+  "<C-f>",
+  "<C-i>",
+  "<C-o>",
+  "<C-u>",
+  "<C-y>",
+  "<PageDown>",
+  "<PageUp>",
+  "G",
+  "N",
+  "^",
+  "g#",
+  "g*",
+  "gg",
+  "gj",
+  "gk",
+  "h",
+  "j",
+  "k",
+  "l",
+  "n",
+  "z+",
+  "z-",
+  "z.",
+  "z<Cr>",
+  "zH",
+  "zL",
+  "z^",
+  "zb",
+  "ze",
+  "zh",
+  "zl",
+  "zs",
+  "zt",
+  "zz",
+  "{",
+  "}",
+  "<Up>",
+  "<Up>",
+  "<Down>",
+  "<Down>",
+  "<Left>",
+  "<Right>",
+  -- B
+  -- A
+  -- <Start>
+}
+
 ---@type LazyPluginSpec
 local spec = {
   "declancm/cinnamon.nvim",
 
-  keys = {
-    "<PageUp>",
-    "<PageDown>",
-    "<C-u>",
-    "<C-d>",
+  keys = movement_keystrokes,
+
+  ---@type CinnamonOptions
+  opts = {
+    keymaps = {
+      basic = true,
+      extra = true,
+    },
   },
 
-  config = function()
-    require("cinnamon").setup {
-      extra_keymaps = true,
-      extended_keymaps = true,
-    }
-
-    vim.keymap.set(
-      { "i", "n", "x" },
-      "<PageUp>",
-      [[ <Cmd>lua Scroll('<C-u>', 1, 1)<CR> ]]
-    )
-    vim.keymap.set(
-      { "i", "n", "x" },
-      "<PageDown>",
-      [[ <Cmd>lua Scroll('<C-d>', 1, 1)<CR> ]]
-    )
-  end,
+  config = true,
 }
 
 return spec
