@@ -12,18 +12,18 @@
 local fn, fs, source = vim.fn, vim.fs, vim.cmd.source
 
 local function fetch_configs(ext, path)
-  return ipairs(
-    fs.find(function(name) return name:match ".*%." .. ext .. "$" end, {
-      path = path,
-      type = "file",
-      limit = math.huge,
-    })
-  )
+  return ipairs(fs.find(function(name)
+    return name:match(".*%.") .. ext .. "$"
+  end, {
+    path = path,
+    type = "file",
+    limit = math.huge,
+  }))
 end
 
 local luadir = "config"
-local luaconfd = fs.normalize(fn.stdpath "config" .. "/lua/" .. luadir)
-local vimconfd = fs.normalize(fn.stdpath "config" .. "/vim.d")
+local luaconfd = fs.joinpath(fn.stdpath("config") .. "/lua/" .. luadir)
+local vimconfd = fs.joinpath(fn.stdpath("config") .. "/vim.d")
 
 for _, conf in fetch_configs("lua", luaconfd) do
   require(luadir .. "." .. fs.basename(conf):gsub("%.lua$", ""))
@@ -34,4 +34,4 @@ for _, conf in fetch_configs("vim", vimconfd) do
 end
 
 -- Start plugin setup
-require "lazyconfig"
+require("lazyconfig")
