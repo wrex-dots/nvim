@@ -21,9 +21,20 @@ ensure["tree-sitter"]:add {
   "tsx",
 }
 
+local EslintFixAll = vim.api.nvim_create_augroup("EslintFixAll", {})
+
 ---@type fun(T: LspTools): fun(client: lsp.Client, buffer: integer) : nil
 local function on_attach(T)
   return function(client, buffer)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = EslintFixAll,
+      buffer = buffer,
+      callback = function()
+        -- Added this check because
+        if vim.cmd.EslintFixAll then vim.cmd.EslintFixAll() end
+      end,
+    })
+
     require("twoslash-queries").attach(client, buffer)
     T.hook_fmt(client, buffer)
   end
