@@ -41,7 +41,7 @@ return function()
     },
     {
       "<leader>dd",
-      function() tele.diagnostics "bufnr=0" end,
+      function() tele.diagnostics { bufnr = 0 } end,
       desc = "LSP diagnostics",
     },
     {
