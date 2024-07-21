@@ -31,7 +31,7 @@ local spec = {
 
   init = function()
     vim.o.statusline = vim.o.statusline
-      .. '%{&ft == "toggleterm" ? "Terminal @".b:toggle_number : ""}'
+      .. [[%{&ft == "toggleterm" ? "[".b:toggle_number."] Terminal" : ""}]]
 
     vim.api.nvim_create_autocmd("TermOpen", {
       desc = "Set Terminal mode keymaps",
@@ -64,7 +64,7 @@ local spec = {
     }
   end,
 
-  config = function(_, opts) require("toggleterm").setup(opts) end,
+  config = true,
 }
 
 return spec
