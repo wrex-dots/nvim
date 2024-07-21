@@ -77,7 +77,7 @@ return fox.keys.lazy({
     desc = "Close current buffer",
   },
   {
-    "<C-b><S-o>",
+    "<C-b><C-o>",
     vim.cmd.BufferCloseAllButCurrent,
     desc = "Close all buffer except the currently focused one",
   },
