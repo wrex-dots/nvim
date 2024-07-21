@@ -52,7 +52,7 @@ local factory = function(T)
           includeInlayVariableTypeHints = false,
           includeInlayVariableTypeHintsWhenTypeMatchesName = false,
           includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = false,
           includeInlayEnumMemberValueHints = true,
         },
         tsserver_locale = "en",
