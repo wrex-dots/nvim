@@ -19,7 +19,7 @@ local function factory(T)
   return function()
     T.lspconfig[server].setup {
       capabilities = T.capabilities,
-      on_attach = T.hook_fmt,
+      on_attach = T.default_on_attach,
       settings = {
         Lua = {
           hint = { enable = true },

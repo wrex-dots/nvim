@@ -15,10 +15,10 @@ ensure["tree-sitter"]:add {
   "objc",
 }
 
----@type fun(T: LspTools): fun(client: lsp.Client, buffer: integer) : nil
+---@type fun(T: LspTools): LspHookFunction
 local function on_attach(T)
   return function(client, buffer)
-    T.hook_fmt(client, buffer)
+    T.default_on_attach(client, buffer)
 
     -- local ih = require "clangd_extensions.inlay_hints"
     -- ih.setup_autocmd()

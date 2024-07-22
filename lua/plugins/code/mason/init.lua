@@ -24,30 +24,12 @@ local mason = {
     local masonlsp = require "mason-lspconfig"
     local lspconfig = require "lspconfig"
     local capabilities = require("coq").lsp_ensure_capabilities().capabilities
-
-    local FormatOnSave = vim.api.nvim_create_augroup("FormatOnSave", {})
-    local attach_formatter_on_save = function(client, buffer)
-      if client.supports_method "textDocument/formatting" then
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = FormatOnSave,
-          buffer = buffer,
-          callback = function()
-            -- selene: allow(global_usage)
-            _G["PLF_SHOULD_OPEN_PICKER"] = false
-            require("plf").format {
-              async = false,
-            }
-            -- selene: allow(global_usage)
-            _G["PLF_SHOULD_OPEN_PICKER"] = true
-          end,
-        })
-      end
-    end
+    local navic = require "nvim-navic"
 
     local handlers = require "plugins.code.mason.handlers" {
       lspconfig = lspconfig,
       capabilities = capabilities,
-      hook_fmt = attach_formatter_on_save,
+      default_on_attach = require "plugins.code.mason.default_on_attach",
     }
 
     masonlsp.setup {

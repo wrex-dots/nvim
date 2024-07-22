@@ -7,20 +7,21 @@ local Handlers = {}
 ---@class LspConfigMain
 ---@field [string] LspConfigModule
 
----@alias LspHookFunction fun(client: lsp.Client, bufno: number)
+---@alias LspHookFunction fun(client: vim.lsp.Client, bufno: number)
 
 ---@class LspTools
----@field lspconfig    LspConfigMain
----@field hook_fmt     LspHookFunction
----@field capabilities unknown
+---@field lspconfig         LspConfigMain
+---@field default_on_attach LspHookFunction
+---@field capabilities      unknown
 
 ---@alias LspHandlerFactory fun(T: LspTools): function
 ---@alias LspHandlerFactoryDict table<string, LspHandlerFactory>
 
 local function get_handlers(T)
+  vim.inspect(T)
   Handlers[1] = function(lang)
     T.lspconfig[lang].setup {
-      on_attach = T.hook_fmt,
+      on_attach = T.default_on_attach,
       capabilities = T.capabilities,
     }
   end

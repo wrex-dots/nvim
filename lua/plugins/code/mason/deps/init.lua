@@ -8,6 +8,9 @@ local deps = {
   -- JSON / YAML
   "b0o/SchemaStore.nvim",
 
+  -- Context display in the bottom status line
+  "SmiteshP/nvim-navic",
+
   plug "mason",
   plug "ctags",
 }

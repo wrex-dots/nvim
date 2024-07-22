@@ -11,6 +11,7 @@ local neovim_lsp_symbols = {
 }
 
 --- Wrapper around `vim.lsp.buf.format` to avoid formatting with ALL formatters at once
+--- TODO: Add some sort of priority setting when multiple sources are available
 local formatter_picker = {
   "fmbarina/pick-lsp-formatter.nvim",
 
