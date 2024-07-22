@@ -16,11 +16,9 @@ local spec = {
     vim.o.foldenable = true
   end,
 
-  config = function()
-    require("ufo").setup {
-      provider_selector = function() return { "treesitter", "indent" } end,
-    }
-  end,
+  opts = {
+    provider_selector = function() return { "treesitter", "indent" } end,
+  },
 }
 
 return spec
