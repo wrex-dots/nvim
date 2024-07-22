@@ -15,7 +15,13 @@ table.insert(deps, {
   opts = {
     enable = true,
     max_lines = 0,
+    separator = "^",
   },
+
+  config = function(_, opts)
+    require("treesitter-context").setup(opts)
+    vim.cmd [[highlight! link TreeSitterContext Normal]]
+  end,
 })
 
 table.insert(deps, {
