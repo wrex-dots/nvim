@@ -56,20 +56,16 @@ local spec = {
     })
   end,
 
-  opts = function()
-    -- Check if user has defined $SHELL, use that one preferably.
-    -- Otherwise use Vim's shell option which should always have something.
-    local shell = vim.fn.expand "$SHELL"
-    shell = shell ~= "" and shell or vim.o.shell
-
-    return {
-      autochdir = true,
-      direction = "horizontal",
-      shell = shell,
-    }
-  end,
-
-  config = true,
+  opts = {
+    autochdir = true,
+    direction = "horizontal",
+    shell = function()
+      -- Check if user has defined $SHELL, use that one preferably.
+      -- Otherwise use Vim's shell option which should always have something.
+      local shell = vim.fn.expand "$SHELL"
+      return shell ~= "" and shell or vim.o.shell
+    end,
+  },
 }
 
 return spec
