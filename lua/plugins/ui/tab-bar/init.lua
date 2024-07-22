@@ -1,10 +1,14 @@
-local function plug(mod) return require("plugins.ui.tab-bar." .. mod) end
-
 ---@type LazyPluginSpec
 local spec = {
   "romgrk/barbar.nvim",
 
-  dependencies = plug "deps",
+  dependencies = {
+    -- Git signs integration
+    "lewis6991/gitsigns.nvim",
+
+    -- Icons
+    "nvim-tree/nvim-web-devicons",
+  },
 
   lazy = false,
 
