@@ -15,6 +15,8 @@ local crates = {
 ---@type LazyPluginSpec
 local ferris = {
   "vxpm/ferris.nvim",
+
+  config = true,
 }
 
 return {
