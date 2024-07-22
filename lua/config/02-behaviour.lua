@@ -99,10 +99,6 @@ for _, ignore in ipairs {
   vim.opt.wildignore:append(ignore)
 end
 
--- Display your current position inside current buffer in the statusbar
-vim.opt.ruler = true
-vim.opt.rulerformat = "L%l:%c (%p%%) [%V%=%P]"
-
 -- Hide abandonned buffers
 vim.opt.hidden = true
 
