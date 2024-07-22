@@ -46,11 +46,7 @@ local spec = {
         )
 
         if event.file:match ".*#toggleterm#.*" then
-          vim.api.nvim_set_option_value(
-            "winbar",
-            "%= ::" .. vim.b.toggle_number .. "%=",
-            { scope = "local" }
-          )
+          vim.opt_local.winbar = "%= ::" .. vim.b.toggle_number .. "%="
         end
       end,
     })
