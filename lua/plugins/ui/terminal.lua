@@ -30,9 +30,6 @@ local spec = {
   end,
 
   init = function()
-    vim.o.statusline = vim.o.statusline
-      .. [[%{&ft == "toggleterm" ? "[".b:toggle_number."] Terminal" : ""}]]
-
     vim.api.nvim_create_autocmd("TermOpen", {
       desc = "Set Terminal mode keymaps",
       pattern = "term://*",
@@ -40,13 +37,21 @@ local spec = {
         "TermOpenSetKeymaps",
         { clear = true }
       ),
-      callback = function()
+      callback = function(event)
         require("foxutils.keys").noremap.t(
           "Terminal: Leave Terminal mode",
           "<esc><esc>",
           [[<C-\><C-n>]],
           { buffer = 0 }
         )
+
+        if event.file:match ".*#toggleterm#.*" then
+          vim.api.nvim_set_option_value(
+            "winbar",
+            "%= ::" .. vim.b.toggle_number .. "%=",
+            { scope = "local" }
+          )
+        end
       end,
     })
   end,
