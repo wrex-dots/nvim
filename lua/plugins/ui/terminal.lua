@@ -14,6 +14,10 @@ local spec = {
 
     return fox.keys.lazy({
       {
+        [[<C-\>]],
+        desc = "Toggle terminal (supports motions)",
+      },
+      {
         "<F11>",
         toggle "horizontal",
         desc = "Open horizontal",
@@ -23,6 +27,11 @@ local spec = {
         toggle "float",
         desc = "Open float",
       },
+      {
+        "<C-F11>",
+        vim.cmd.TermSelect,
+        desc = "Open terminal picker",
+      },
     }, {
       prefix = "ToggleTerm: ",
       mode = { "n", "v", "i", "t" },
@@ -30,29 +39,35 @@ local spec = {
   end,
 
   init = function()
+    vim.o.hidden = true -- Prevent terminals from getting discarded
+    --                     when put in the background
+
     vim.api.nvim_create_autocmd("TermOpen", {
       desc = "Set Terminal mode keymaps",
-      pattern = "term://*",
-      group = vim.api.nvim_create_augroup(
-        "TermOpenSetKeymaps",
-        { clear = true }
-      ),
-      callback = function(event)
+      pattern = "term://*#toggleterm#*",
+      group = vim.api.nvim_create_augroup("ToggleTermInit", { clear = true }),
+      callback = function()
+        vim.opt_local.winbar = "%= ::" .. vim.b.toggle_number .. "%="
+
+        -- Require a double tap on <esc> to leave terminal mode.
+        -- That way, TUIs that rely on <esc> to quit won't make you close the terminal
+        -- window when you want out of them.
         require("foxutils.keys").noremap.t(
           "Terminal: Leave Terminal mode",
           "<esc><esc>",
           [[<C-\><C-n>]],
           { buffer = 0 }
         )
-
-        if event.file:match ".*#toggleterm#.*" then
-          vim.opt_local.winbar = "%= ::" .. vim.b.toggle_number .. "%="
-        end
       end,
     })
   end,
 
   opts = {
+    -- We do have F11 for quick toggle in a predefined layout.
+    -- However, this one mapping supports motions, enabling stuff like opening a terminal
+    -- with a chosen id (uint), like `2<C-n>`
+    open_mapping = [[<C-\>]],
+
     autochdir = true,
     direction = "horizontal",
     shell = function()
