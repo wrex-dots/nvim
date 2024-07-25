@@ -1,20 +1,23 @@
 local fox = require "foxutils"
 
----@type LazySpec
-return {
-  {
-    "cshuaimin/ssr.nvim",
+---@type LazyPlginSpec
+local spec = {
+  "cshuaimin/ssr.nvim",
 
-    keys = fox.keys.lazy({
+  keys = function()
+    local ssr = require "ssr"
+
+    return fox.keys.lazy({
       {
-        "<C-F2>",
-        function() require("ssr").open() end,
-        desc = "Start",
+        "<leader><S-r>",
+        ssr.open,
+        desc = "Structural Search and Replace (SSR)",
       },
     }, {
-      prefix = "Structural Search and Replace: ",
-      mode = { "i", "v", "n" },
+      mode = { "v", "n" },
       noremap = true,
-    }),
-  },
+    })
+  end,
 }
+
+return spec
