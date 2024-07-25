@@ -9,6 +9,10 @@ ensure["mason"]:add {
   server,
 }
 
+ensure["null-ls"]:add {
+  "cpplint",
+}
+
 ensure["tree-sitter"]:add {
   "c",
   "cpp",
