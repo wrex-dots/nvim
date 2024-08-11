@@ -9,6 +9,7 @@ local spec = {
 
     options = {
       indent_at_cursor = false,
+      try_as_border = true,
     },
   },
 }
