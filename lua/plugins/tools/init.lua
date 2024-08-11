@@ -5,7 +5,7 @@ return {
   require "plugins.tools.image-preview",
   require "plugins.tools.keys-helper",
   require "plugins.tools.lazygit",
-  require "plugins.tools.per-project-config",
+  require "plugins.tools.project-config",
   require "plugins.tools.structural-search-replace",
   require "plugins.tools.surround",
   require "plugins.tools.toggler",
