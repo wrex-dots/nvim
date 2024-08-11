@@ -3,6 +3,7 @@ local ui = {
   require "plugins.ui.apis",
 
   require "plugins.ui.theme",
+  require "plugins.ui.highlight-todos",
   require "plugins.ui.greeter",
 
   require "plugins.ui.file-tree",
