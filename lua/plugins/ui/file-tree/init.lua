@@ -1,5 +1,4 @@
 local fox = require "foxutils"
-local function plug(mod) return require("plugins.ui.file-tree." .. mod) end
 
 ---@type LazyPluginSpec
 local spec = {
@@ -14,23 +13,31 @@ local spec = {
     },
   },
 
-  keys = fox.keys.lazy({
-    {
-      "<C-n>",
-      vim.cmd.NvimTreeToggle,
-      desc = "Toggle",
-    },
-    {
-      "<M-n>",
-      vim.cmd.NvimTreeFocus,
-      desc = "Focus",
-    },
-  }, {
-    prefix = "NvimTree: ",
-    mode = { "n", "i", "x" },
-    silent = true,
-    noremap = true,
-  }),
+  keys = function()
+    --- Execute an NvimTree API function
+    ---@param fname string
+    local function tree(fname)
+      return function() require("nvim-tree.api").tree[fname]() end
+    end
+
+    return fox.keys.lazy({
+      {
+        "<C-n>",
+        tree "toggle",
+        desc = "Toggle",
+      },
+      {
+        "<M-n>",
+        tree "focus",
+        desc = "Focus",
+      },
+    }, {
+      prefix = "NvimTree: ",
+      mode = { "n", "i", "x" },
+      silent = true,
+      noremap = true,
+    })
+  end,
 
   init = function()
     -- Disable netrw (Vim's default tree explorer)
@@ -66,7 +73,7 @@ local spec = {
       enable = true,
     },
 
-    on_attach = plug "on_attach",
+    on_attach = require "plugins.ui.file-tree.on_attach",
   },
 
   config = function(_, opts)
