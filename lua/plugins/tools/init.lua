@@ -1,4 +1,5 @@
 return {
+  require "plugins.tools.auto-sessions",
   require "plugins.tools.discord-rtp",
   require "plugins.tools.hexedit",
   require "plugins.tools.image-preview",
