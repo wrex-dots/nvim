@@ -12,12 +12,12 @@ return fox.keys.lazy({
     desc = "Move to previous buffer",
   },
   {
-    "<S->>",
+    "<C-.>",
     vim.cmd.BufferMoveNext,
     desc = "Move buffer tab right",
   },
   {
-    "<S-<>",
+    "<C-,>",
     vim.cmd.BufferMovePrevious,
     desc = "Move buffer tab left",
   },
@@ -72,17 +72,17 @@ return fox.keys.lazy({
     desc = "Jump to buffer in last position",
   },
   {
-    "<C-b>c",
+    "<leader>bc",
     vim.cmd.BufferClose,
     desc = "Close current buffer",
   },
   {
-    "<C-b><C-o>",
+    "<leader>b<S-o>",
     vim.cmd.BufferCloseAllButCurrent,
     desc = "Close all buffer except the currently focused one",
   },
   {
-    "<C-b>x",
+    "<leader>bx",
     function()
       vim.cmd.up()
       vim.cmd.BufferClose()
@@ -90,36 +90,36 @@ return fox.keys.lazy({
     desc = "Save changes and close buffer",
   },
   {
-    "<C-b>d",
+    "<leader>bd",
     function() vim.cmd "BufferClose!" end,
     desc = "Delete current buffer (ignore changes)",
   },
   {
-    "<C-b>p",
+    "<leader>bp",
     vim.cmd.BufferPick,
     desc = "Trigger buffer picker",
   },
   {
-    "<C-b>m",
+    "<leader>bm",
     desc = "Move buffer to tab",
   },
   {
-    "<C-b>on",
+    "<leader>bon",
     vim.cmd.BufferOrderByBufferNumber,
     desc = "Order buffers by number",
   },
   {
-    "<C-b>od",
+    "<leader>bod",
     vim.cmd.BufferOrderByDirectory,
     desc = "Order buffers by directory",
   },
   {
-    "<C-b>ol",
+    "<leader>bol",
     vim.cmd.BufferOrderByLanguage,
     desc = "Order buffers by language",
   },
   {
-    "<C-b>ow",
+    "<leader>bow",
     vim.cmd.BufferOrderByWindowNumber,
     desc = "Order buffers by language",
   },
