@@ -1,4 +1,4 @@
-local fox = require "foxutils"
+local keys = require "foxutils.keys"
 --[[
      MAPLEADER:
      ==========
@@ -22,7 +22,7 @@ vim.g.mapleader = ","
      Most of the times it's not what you want, as you'll have to
      move to that window and then open a new buffer etc.
 --]]
-fox.keys.batch {
+keys.batch {
   map = {
     n = {
       {
@@ -40,3 +40,26 @@ fox.keys.batch {
     },
   },
 }
+
+--[[
+     SUDO WRITE:
+     ==========
+
+     Enables calling sudo with an external askpass program in order to
+     save buffer to a write-protected/root-owned file.
+
+     Vim cannot provide text input for entering your sudo password, so
+     it needs some GUI to do that in its stead.
+     Requires $SSH_ASKPASS variable environment variable.
+     @see https://wiki.archlinux.org/title/SSH_keys#x11-ssh-askpass
+     @see https://wiki.archlinux.org/title/SSH_keys#Alternative_passphrase_dialogs
+--]]
+if vim.env.SSH_ASKPASS ~= nil then
+  vim.env.SUDO_ASKPASS = vim.env.SSH_ASKPASS
+  keys.map.n(
+    "Write buffer using sudo",
+    "<leader>sw",
+    "<cmd>w !sudo -A tee %<cr>",
+    { silent = true, noremap = true }
+  )
+end

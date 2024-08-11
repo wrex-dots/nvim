@@ -1,8 +1,8 @@
 ---@see Pattern :h pattern
 ---|
 ---@alias FtPattern
----| string         # A vim pattern
----| Array<string>  # An array of vim patterns
+---| string   # A vim pattern
+---| string[] # An array of vim patterns
 
 ---@alias Filetype string # A filetype to assign to files matching given patterns
 

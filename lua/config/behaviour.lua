@@ -26,7 +26,7 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 
 -- Make auto-buffer switching smarter
-vim.opt.switchbuf = { "useopen", "usetab", "split" }
+vim.opt.switchbuf = { "useopen", "usetab", "vsplit" }
 vim.opt.showtabline = 2
 
 -- When opening a file that's already been read, start at last
