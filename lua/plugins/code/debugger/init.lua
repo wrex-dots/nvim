@@ -16,37 +16,43 @@ local spec = {
   },
 
   keys = function()
-    local dap = require "dap"
+    local function dap(command)
+      return function() require("dap")[command]() end
+    end
+    local function repl(command)
+      return function() require("dap").repl[command]() end
+    end
+
     return fox.keys.lazy({
       {
         "<F1>",
-        dap.toggle_breakpoint,
+        dap "toggle_breakpoint",
         desc = "Toggle breakpoint",
       },
       {
         "<F2>",
-        dap.step_into,
+        dap "step_into",
         desc = "Step into",
       },
       {
         "<F3>",
-        dap.step_over,
+        dap "step_over",
         desc = "Step over",
       },
       {
         "<F4>",
-        dap.continue,
+        dap "continue",
         desc = "Start/Continue",
       },
       {
         "<S-F4>",
-        dap.continue,
+        dap "continue",
         desc = "Restart",
       },
       {
         "<F5>",
-        dap.repl.open,
-        desc = "Open REPL",
+        repl "toggle",
+        desc = "Toggle REPL",
       },
     }, {
       mode = { "n", "i" },
@@ -55,7 +61,7 @@ local spec = {
     })
   end,
 
-  config = function(_, opts)
+  config = function()
     local completion = require "dap.ext.autocompl"
 
     vim.api.nvim_create_autocmd("FileType", {
