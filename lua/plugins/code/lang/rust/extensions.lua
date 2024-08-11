@@ -7,7 +7,7 @@ local crates = {
   event = "BufRead Cargo.toml",
 
   opts = {
-    src = { coq = { enabled = true } },
+    completion = { coq = { enabled = true }, name = "Crates" },
     null_ls = { enabled = true },
   },
 }
