@@ -6,6 +6,10 @@ local spec = {
     draw = {
       priority = 50,
     },
+
+    options = {
+      indent_at_cursor = false,
+    },
   },
 }
 
